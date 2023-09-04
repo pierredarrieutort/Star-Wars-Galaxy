@@ -1,15 +1,17 @@
 {
-  "name": "star-wars-galaxy",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "parcel serve src/index.html"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.9.3"
+    "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "leaflet": "^1.7.1"
   }
 }

@@ -2,8 +2,8 @@
 
 //Invisible Icon
 export const invisible1 = L.icon({
-  iconUrl: require('../images/planet-shadow.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planet-shadow.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [10, 10], // size of the icon
   shadowSize: [1, 1], // size of the shadow
   iconAnchor: [5, 0], // point of the icon which will correspond to marker's location
@@ -13,8 +13,8 @@ export const invisible1 = L.icon({
 
 //Non-Movie Planet Icons
 export const pltIconBlk = L.icon({
-  iconUrl: require('../images/planet-blk.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planet-blk.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [16, 16], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -23,8 +23,8 @@ export const pltIconBlk = L.icon({
 })
 
 export const pltIconCan = L.icon({
-  iconUrl: require('../images/planet-grn.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planet-grn.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [16, 16], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -33,8 +33,8 @@ export const pltIconCan = L.icon({
 })
 
 export const pltIconLeg = L.icon({
-  iconUrl: require('../images/planet-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planet-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [16, 16], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -43,8 +43,8 @@ export const pltIconLeg = L.icon({
 })
 
 export const pltIconCaL = L.icon({
-  iconUrl: require('../images/planet-grn-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planet-grn-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [16, 16], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -54,8 +54,8 @@ export const pltIconCaL = L.icon({
 
 //Movie Planet Icons
 export const pltIconBlk2 = L.icon({
-  iconUrl: require('../images/planetMov-blk.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planetMov-blk.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -64,8 +64,8 @@ export const pltIconBlk2 = L.icon({
 })
 
 export const pltIconCan2 = L.icon({
-  iconUrl: require('../images/planetMov-grn.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planetMov-grn.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -74,8 +74,8 @@ export const pltIconCan2 = L.icon({
 })
 
 export const pltIconLeg2 = L.icon({
-  iconUrl: require('../images/planetMov-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planetMov-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -84,8 +84,8 @@ export const pltIconLeg2 = L.icon({
 })
 
 export const pltIconCaL2 = L.icon({
-  iconUrl: require('../images/planetMov-grn-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planetMov-grn-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -96,8 +96,8 @@ export const pltIconCaL2 = L.icon({
 //Non-Movie Nebula Icons
 
 export const nebIconBlk = L.icon({
-  iconUrl: require('../images/nebula-normal.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/nebula-normal.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [12, 12], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -106,8 +106,8 @@ export const nebIconBlk = L.icon({
 })
 
 export const nebIconCan = L.icon({
-  iconUrl: require('../images/nebula-grn.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/nebula-grn.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [16, 16], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -116,8 +116,8 @@ export const nebIconCan = L.icon({
 })
 
 export const nebIconLeg = L.icon({
-  iconUrl: require('../images/nebula-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/nebula-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [16, 16], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -126,8 +126,8 @@ export const nebIconLeg = L.icon({
 })
 
 export const nebIconCaL = L.icon({
-  iconUrl: require('../images/nebula-grn-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/nebula-grn-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [16, 16], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [8, 8],   // point of the icon which will correspond to marker's location
@@ -137,8 +137,8 @@ export const nebIconCaL = L.icon({
 
 //Movie Nebula Icons
 export const nebIconCan2 = L.icon({
-  iconUrl: require('../images/nebulaMov-grn.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/nebulaMov-grn.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -147,8 +147,8 @@ export const nebIconCan2 = L.icon({
 })
 
 export const nebIconLeg2 = L.icon({
-  iconUrl: require('../images/nebulaMov-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/nebulaMov-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -157,8 +157,8 @@ export const nebIconLeg2 = L.icon({
 })
 
 export const nebIconCaL2 = L.icon({
-  iconUrl: require('../images/nebulaMov-grn-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/nebulaMov-grn-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -168,8 +168,8 @@ export const nebIconCaL2 = L.icon({
 
 //Non-Movie Station Icons
 export const staIconCan = L.icon({
-  iconUrl: require('../images/staton-grn.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/staton-grn.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [20, 20], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -178,8 +178,8 @@ export const staIconCan = L.icon({
 })
 
 export const staIconLeg = L.icon({
-  iconUrl: require('../images/staton-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/staton-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [20, 20], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -188,8 +188,8 @@ export const staIconLeg = L.icon({
 })
 
 export const staIconCaL = L.icon({
-  iconUrl: require('../images/staton-grn-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/staton-grn-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [20, 20], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -199,8 +199,8 @@ export const staIconCaL = L.icon({
 
 //Movie Station Icons
 export const staIconBlk2 = L.icon({
-  iconUrl: require('../images/statonMov-blk.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/statonMov-blk.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [20, 20], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -209,8 +209,8 @@ export const staIconBlk2 = L.icon({
 })
 
 export const staIconCan2 = L.icon({
-  iconUrl: require('../images/statonMov-grn.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/statonMov-grn.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [20, 20], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -219,8 +219,8 @@ export const staIconCan2 = L.icon({
 })
 
 export const staIconLeg2 = L.icon({
-  iconUrl: require('../images/statonMov-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/statonMov-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [20, 20], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -229,8 +229,8 @@ export const staIconLeg2 = L.icon({
 })
 
 export const staIconCaL2 = L.icon({
-  iconUrl: require('../images/statonMov-grn-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/statonMov-grn-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [20, 20], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [10, 10],   // point of the icon which will correspond to marker's location
@@ -241,8 +241,8 @@ export const staIconCaL2 = L.icon({
 //Non-Movie Phenomena Icons
 
 export const pheIconBlk = L.icon({
-  iconUrl: require('../images/phenom-normal.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/phenom-normal.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [10, 10], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -251,8 +251,8 @@ export const pheIconBlk = L.icon({
 })
 
 export const pheIconCan = L.icon({
-  iconUrl: require('../images/phenom-grn.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/phenom-grn.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [10, 10], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -261,8 +261,8 @@ export const pheIconCan = L.icon({
 })
 
 export const pheIconLeg = L.icon({
-  iconUrl: require('../images/phenom-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/phenom-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [10, 10], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -271,8 +271,8 @@ export const pheIconLeg = L.icon({
 })
 
 export const pheIconCaL = L.icon({
-  iconUrl: require('../images/phenom-grn-blu.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/phenom-grn-blu.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [10, 10], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -282,8 +282,8 @@ export const pheIconCaL = L.icon({
 
 //Others/Old
 export const planetIcon = L.icon({
-  iconUrl: require('../images/planet-normal.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planet-normal.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [10, 10], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -292,8 +292,8 @@ export const planetIcon = L.icon({
 })
 
 export const planetIcon2 = L.icon({
-  iconUrl: require('../images/planet-movie.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/planet-movie.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [14, 14], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -302,8 +302,8 @@ export const planetIcon2 = L.icon({
 })
 
 export const statonIcon = L.icon({
-  iconUrl: require('../images/staton-normal.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/staton-normal.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [12, 12], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -312,8 +312,8 @@ export const statonIcon = L.icon({
 })
 
 export const statonIcon2 = L.icon({
-  iconUrl: require('../images/staton-movie.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/staton-movie.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [18, 18], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -322,8 +322,8 @@ export const statonIcon2 = L.icon({
 })
 
 export const clustrIcon = L.icon({
-  iconUrl: require('../images/clustr-normal.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/clustr-normal.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [13, 13], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
@@ -332,8 +332,8 @@ export const clustrIcon = L.icon({
 })
 
 export const blkhleIcon = L.icon({
-  iconUrl: require('../images/blkhle-normal.png'),
-  shadowUrl: require('../images/planet-shadow.png'),
+  iconUrl: '../images/blkhle-normal.png',
+  shadowUrl: '../images/planet-shadow.png',
   iconSize: [10, 10], // size of the icon
   shadowSize: [10, 10], // size of the shadow
   iconAnchor: [5, 5],   // point of the icon which will correspond to marker's location
