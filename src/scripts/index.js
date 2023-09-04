@@ -87,13 +87,6 @@ import {
   blkhleIcon
 } from './icons.js'
 
-//Markers
-  var coruscant = L.marker([0, 0], {icon: planetIcon,}).bindTooltip('<b>Coruscant</b>', {permanent: true, direction : 'right'}).addTo(map);
-
-  var alderaan = L.marker([24.37, -1.579], {icon: planetIcon,}).bindTooltip('<b>Alderaan</b>').addTo(map);
-  var corellia = L.marker([-26.37, -2.579], {radius: 20}).bindPopup('<b>Corellia</b>').addTo(map);
-  var commenor = L.marker([-28.21, -1.24],  {icon: planetIcon}).bindTooltip("Commenor").addTo(map);
-
 
 // create popup contents
 //===== row 01 =====
@@ -6494,6 +6487,3 @@ var coruscantDantooineRun = new L.Polyline(pointList, {
   marker.on('dragend', function(e) {
     marker.getPopup().setContent(marker.getLatLng().toString()).openOn(map);
   });
-
-  //Creates "blue pin" marker" that displays borderless tooltip on mouseover (currently above 0,0)
-  L.marker([23.37, 1.579]).bindTooltip('Look revealing label!').addTo(map);
