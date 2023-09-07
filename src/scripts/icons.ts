@@ -1,4 +1,4 @@
-//Icons
+import L from 'leaflet'
 
 //Invisible Icon
 export const invisible1 = L.icon({
