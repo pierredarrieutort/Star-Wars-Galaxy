@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import './helpers/vars_handler.ts'
+import './helpers/vars_handler.js'
 
 //Creating the Map
 L.CRS.MySimple = L.extend({}, L.CRS.Simple, {
@@ -86,7 +86,7 @@ import {
   statonIcon2,
   clustrIcon,
   blkhleIcon
-} from './icons.ts'
+} from './icons.js'
 
 // Tokmia, Quesh, Pybus, -- Kokash, Botor -- Nar Kaaga, Allyuen?
 
