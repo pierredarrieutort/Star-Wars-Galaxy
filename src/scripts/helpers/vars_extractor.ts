@@ -225,25 +225,33 @@ const cleanedDataArray = (row: object) => Object.entries(row).map(([key, val]) =
     const deletablesElements = el.querySelectorAll('p, br, hr')
     deletablesElements.forEach(el => el.remove())
   }
-  
+
   domElementsRemover(detailsElement)
   domElementsRemover(descriptionElement)
 
-  const textCleaner = text => {
+  const textCleaner = (text: string) => {
     return text
-      ?.replace(/\s+/g, ' ')
+      .replace(/\s+/g, ' ')
       .trim()
   }
 
-  const cleanedDescriptionText = textCleaner(descriptionElement.textContent)
-  const cleanedDetailsText = textCleaner(detailsElement.textContent)
+  const cleanedDescriptionText = textCleaner(descriptionElement.textContent as string)
+  const cleanedDetailsText = textCleaner(detailsElement.textContent as string)
   const cleanedStarName = key.replace('Popup', '')
-  
+
   descriptionElement.remove()
   detailsElement.remove()
 
+  const { Type, Diameter, Atmosphere, Moons, Stars } = /(?<=Type:\s)(?<Type>.+)(?=Diameter:)\w+:\s(?<Diameter>.+)(?=Atmosphere:)\w+:\s(?<Atmosphere>.+)(?=Stars?:)\w+:\s(?<Stars>.+)(?=Moons?:)\w+:\s(?<Moons>.+)/gmi.exec(cleanedDetailsText)?.groups
+
   return [cleanedStarName, {
-    details: cleanedDetailsText,
+    details: {
+      Type,
+      Diameter,
+      Atmosphere,
+      Moons,
+      Stars
+    },
     description: cleanedDescriptionText
   }]
 })
