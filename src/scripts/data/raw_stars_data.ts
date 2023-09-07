@@ -1,49 +1,6 @@
-//	namePopup : `<div style='width:130px;height:100%;float:right;padding-left:10px'><a href='https://starwars.fandom.com/wiki/name' target='_blank'><img src='../images/t-canon2.png' width='65px'></a><a href='https://starwars.fandom.com/wiki/name/Legends' target='_blank'><img src='../images/t-legends2.png' width='65px'></a><br><br><img src='../images/SmName.png' alt='Name from orbit' width='120px' align='left'/><br><br><br><br><br><br><br><br>Type: Planet<br>Diameter: _,___ km<br>Atmosphere: Type I<br><hr>Star: ____<br>Moons: _</div><p><b>NAME</b></p><br>&emsp;&emsp;_.<hr style='visibility:hidden;'/>&emsp;&emsp;_.<hr style='visibility:hidden;'/>&emsp;&emsp;_.`,
+// Each object in array is a row of original map [1 -> 19].
 
-
-const html = `
-<div style='width:130px;height:100%;float:right;padding-left:10px'>
-   <a href='https://starwars.fandom.com/wiki/name' target='_blank'>
-    <img src='../images/t-canon2.png' width='65px'>
-   </a>
-   <a href='https://starwars.fandom.com/wiki/name/Legends' target='_blank'>
-    <img src='../images/t-legends2.png' width='65px'>
-   </a>
-   <br>
-   <br>
-   <img src='../images/SmName.png' alt='Name from orbit' width='120px' align='left'>
-   <br><br><br><br><br><br><br><br>
-   Type: Planet<br>Diameter: _,___ km
-   <br>
-   Atmosphere: Type I
-   <br>
-   <hr>
-   Star: ____
-   <br>
-   Moons: _
-</div>
-<p><b>NAME</b></p>
-<br>&emsp;&emsp;_.
-<hr style='visibility:hidden;'/>
-&emsp;&emsp;_.
-<hr style='visibility:hidden;'/>
-&emsp;&emsp;_.
-`
-
-interface Star {
-  isCannon: false
-  isLegends: false
-  name: string
-  type: string
-  diameter: number
-  atsmosphere: string
-  stars: []
-  moons: []
-}
-
-
-
-const rows = [
+export default [
   {
     BelkadanPopup: `<div style='width:130px;height:100%;float:right;padding-left:10px'><a href='https://starwars.fandom.com/wiki/Belkadan' target='_blank'><img src='../images/t-canon2.png' width='65px'></a><a href='https://starwars.fandom.com/wiki/Belkadan/Legends' target='_blank'><img src='../images/t-legends2.png' width='65px'></a><br><br><img src='../images/SmNoImage.png' alt='Belkadan from orbit' width='120px' align='left'/><br><br><br><br><br><br><br><br>Type: Planet<br>Diameter: unknown<br>Atmosphere: Type I<br><hr>Star: unknown<br>Moons: 1</div><p><b>BELKADAN</b></p><br>&emsp;&emsp;Located in the remote Tingel Arm, Belkadan was a forested world of tall dalloralla trees. Featured rainforests and swamps, as well as many small seas and lakes. <hr style='visibility:hidden;'/>&emsp;&emsp;Ruled by the Rakata from c. 30,000 BBY but the warrior species fled upon the collapse of their empire c. 25,000 BBY. Later it was ruled by a puppet government loyal to the Sith Empire.<hr style='visibility:hidden;'/>&emsp;&emsp;World was overrun by Praetorite Vong in 25 ABY; its atmosphere was altered due to a Yuuzhan Vong bioweapon in the form of a beetle that produced massive amounts of carbon dioxide and sulfur. The Vong built a shipyard here on their way into the Galaxy.`,
   },
@@ -211,56 +168,3 @@ const rows = [
     OrtoPlutoniaPopup: `<div style='width:130px;height:100%;float:right;padding-left:10px'><a href='https://starwars.fandom.com/wiki/Orto_Plutonia' target='_blank'><img src='../images/t-canon2.png' width='65px'></a><a href='https://starwars.fandom.com/wiki/Orto_Plutonia/Legends' target='_blank'><img src='../images/t-legends2.png' width='65px'></a><br><br><img src='../images/SmNoImage.png' alt='Orto Plutonia from orbit' width='120px' align='left'/><br><br><br><br><br><br><br><br>Type: Planet<br>Diameter: unknown<br>Atmosphere: Type I<br><hr>Star: unknown<br>Moons: at least 2</div><p><b>ORTO PLUTONIA & PANTORA</b></p><br>&emsp;&emsp;A desolate icy planet in the Pantora system, Orto Plutonia was orbited by its moons, including Pantora, home of the near-Human Pantorans. The tribes of Talz inhabiting Orto Plutonia were granted independence following a short conflict with the Pantorans during the Clone Wars.<hr style='visibility:hidden;'/>&emsp;&emsp;Pantora was a member of the Republic, represented by Riyo Chuchi in the Senate. In 21 BBY the moon was blockaded by the Trade Federation, who falsely claimed that Pantora owed them substantial debts, hoping to force them to join the Seperatists.<hr style='visibility:hidden;'/>&emsp;&emsp;Just after the declaration of the Galactic Empore, Clone Force 99 stopped here to refuel. Bounty hunter Fennec Shand pursued them before they managed to escape offworld.`,
   }
 ]
-
-const cleanedDataArray = (row: object) => Object.entries(row).map(([key, val]) => {
-  const detailsElement = document.createElement('section')
-  const descriptionElement = document.createElement('section')
-
-  const [details, description] = val.split('</div>')
-
-  detailsElement.innerHTML = `${details}`.replace('<div>', '')
-  descriptionElement.innerHTML = description
-
-  const domElementsRemover = (el: HTMLElement) => {
-    const deletablesElements = el.querySelectorAll('p, br, hr')
-    deletablesElements.forEach(el => el.remove())
-  }
-
-  domElementsRemover(detailsElement)
-  domElementsRemover(descriptionElement)
-
-  const textCleaner = (text: string) => {
-    return text
-      .replace(/\s+/g, ' ')
-      .trim()
-  }
-
-  const cleanedDescriptionText = textCleaner(descriptionElement.textContent as string)
-  const cleanedDetailsText = textCleaner(detailsElement.textContent as string)
-  const cleanedStarName = key.replace('Popup', '')
-
-  descriptionElement.remove()
-  detailsElement.remove()
-
-  const { Type, Diameter, Atmosphere, Moons, Stars } = /(?<=Type:\s)(?<Type>.+)(?=Diameter:)\w+:\s(?<Diameter>.+)(?=Atmosphere:)\w+:\s(?<Atmosphere>.+)(?=Stars?:)\w+:\s(?<Stars>.+)(?=Moons?:)\w+:\s(?<Moons>.+)/gmi.exec(cleanedDetailsText)?.groups
-
-  return [cleanedStarName, {
-    details: {
-      Type,
-      Diameter,
-      Atmosphere,
-      Moons,
-      Stars
-    },
-    description: cleanedDescriptionText
-  }]
-})
-
-
-const cleanedRows = Object.fromEntries(rows.map((row, index) => {
-  const cleanedData = Object.fromEntries(cleanedDataArray(row))
-
-  return [`row-${index + 1}`, cleanedData]
-}))
-
-console.log(cleanedRows)

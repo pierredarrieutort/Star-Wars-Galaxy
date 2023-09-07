@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import './helpers/vars_extractor.ts'
+import './helpers/vars_handler.ts'
 
 //Creating the Map
 L.CRS.MySimple = L.extend({}, L.CRS.Simple, {
@@ -87,30 +87,6 @@ import {
   clustrIcon,
   blkhleIcon
 } from './icons.ts'
-
-
-// create popup contents
-//===== row 01 =====
-//===== row 02 =====
-//===== row 03 =====
-//===== row 04 =====
-//===== row 05 =====
-//===== row 06 =====
-//===== row 07 =====
-//===== row 08 =====
-//===== row 09 =====
-//===== row 10 =====
-//===== row 11 =====
-//===== row 12 =====
-//===== row 13 =====
-//===== row 14 =====
-//===== row 15 =====
-//===== row 16 =====
-//===== row 17 =====
-//===== row 18 =====
-//===== row 19 =====
-
-//	var namePopup  = "<div style='width:130px;height:100%;float:right;padding-left:10px'><a href='https://starwars.fandom.com/wiki/name' target='_blank'><img src='../images/t-canon2.png' width='65px'></a><a href='https://starwars.fandom.com/wiki/name/Legends' target='_blank'><img src='../images/t-legends2.png' width='65px'></a><br><br><img src='../images/SmName.png' alt='Name from orbit' width='120px' align='left'/><br><br><br><br><br><br><br><br>Type: Planet<br>Diameter: _,___ km<br>Atmosphere: Type I<br><hr>Star: ____<br>Moons: _</div><p><b>NAME</b></p><br>&emsp;&emsp;_.<hr style='visibility:hidden;'/>&emsp;&emsp;_.<hr style='visibility:hidden;'/>&emsp;&emsp;_.";
 
 // Tokmia, Quesh, Pybus, -- Kokash, Botor -- Nar Kaaga, Allyuen?
 
