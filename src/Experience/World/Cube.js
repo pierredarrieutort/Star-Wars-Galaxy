@@ -9,130 +9,84 @@ export default class Cube {
     this.debug = this.experience.debug
     this.time = this.experience.time
 
-    // Debug
-
-    this.debugApi = {
-      count: 50,
-      gpuMemory: 0
-    }
-
     if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder('environment')
-
-      this.debugFolder
-        .add(this.debugApi, 'count')
-        .min(1)
-        .max(1000)
-        .step(1)
-        .onChange(() => {
-          this.cleanMeshes()
-          this.makeInstancedMeshes()
-        })
-
-      this.debugFolder
-        .add(this.debugApi, 'gpuMemory')
-        .name('GPU memory')
-        .listen()
-        .disable()
+      const axesHelper = new THREE.AxesHelper(3)
+      this.scene.add(axesHelper)
     }
 
-    this.setGeometry()
-    this.setMaterial()
-    this.setMesh()
+    this.starGroups = []
 
-    this.meshes = this.makeInstancedMeshes()
-  }
-
-  setGeometry () {
-    this.geometry = new THREE.BoxGeometry(1, 1, 1)
-  }
-
-  setMaterial () {
-    this.material = new THREE.MeshLambertMaterial()
-  }
-
-  setMesh () {
-    this.mesh = new THREE.Mesh(this.geometry, this.material)
-    this.mesh.rotation.x = - Math.PI * 0.5
-    this.mesh.receiveShadow = true
-    this.scene.add(this.mesh)
-  }
-
-  cleanMeshes () {
-    const meshes = []
-
-    this.scene.traverse(object => {
-      if (object.isMesh)
-        meshes.push(object)
+    this.createStar({
+      size: .5,
+      x: 5,
+      y: 5
     })
-
-    for (let i = 0; i < meshes.length; i++) {
-      const mesh = meshes[i]
-      mesh.material.dispose()
-      mesh.geometry.dispose()
-
-      this.scene.remove(mesh)
-    }
   }
 
-  makeInstancedMeshes () {
-    this.instancedMesh = new THREE.InstancedMesh(this.geometry, this.material, this.debugApi.count)
+  createStar (starData) {
+    this.setGeometries(starData)
+    this.setMaterials()
 
-    for (let i = 0; i < this.debugApi.count; i++) {
-      const position = new THREE.Vector3(
-        Math.random() * 10 - 5,
-        Math.random() * 10 - 5,
-        Math.random() * 10 - 5
-      )
+    const { sphere, lineLoop } = this.createElements()
 
-      const quaternion = new THREE.Quaternion().random()
+    const subGroup = new THREE.Group()
+    subGroup.position.set(starData.x, 0, starData.y)
+    subGroup.add(sphere)
 
-      const scale = new THREE.Vector3(
-        Math.random(),
-        Math.random(),
-        Math.random()
-      )
+    const parentGroup = new THREE.Group()
+    parentGroup.add(lineLoop, subGroup)
 
-      const matrix = new THREE.Matrix4()
-      matrix.compose(position, quaternion, scale)
+    parentGroup.setRotationFromEuler(new THREE.Euler(Math.PI / 8))
 
-      this.instancedMesh.setMatrixAt(i, matrix)
-    }
+    this.starGroups.push(parentGroup)
 
-    this.scene.add(this.instancedMesh)
-
-    const geometryByteLength = this.getGeometryByteLength(this.geometry);
-    this.debugApi.gpuMemory = this.formatBytes(this.debugApi.count * 16 + geometryByteLength, 2)
+    this.scene.add(parentGroup)
   }
 
+  setGeometries ({ size, x, y }) {
+    this.sphereGeometry = new THREE.SphereGeometry(size, 32, 32)
 
-  getGeometryByteLength = () => {
-    let total = 0
 
-    if (this.geometry.index)
-      total += this.geometry.index.array.byteLength;
+    const curve = new THREE.EllipseCurve(0, 0, x, y)
 
-    for (const name in this.geometry.attributes) {
-      total += this.geometry.attributes[name].array.byteLength;
-    }
-
-    return total
+    const pts = curve.getSpacedPoints(256)
+    this.lineLoopGeometry = new THREE.BufferGeometry().setFromPoints(pts)
+    this.lineLoopGeometry.rotateX(Math.PI / 2)
   }
 
-  formatBytes = (bytes, decimals) => {
-    if (bytes === 0)
-      return '0 bytes'
+  setMaterials () {
+    this.sphereMaterial = new THREE.MeshLambertMaterial()
+    this.lineLoopMaterial = new THREE.LineBasicMaterial({ color: 0xFF00FF })
+  }
 
-    const k = 1024
-    const dm = decimals < 0 ? 0 : decimals
-    const sizes = ['bytes', 'KB', 'MB']
-
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+  createElements () {
+    return {
+      sphere: new THREE.Mesh(this.sphereGeometry, this.sphereMaterial),
+      lineLoop: new THREE.LineLoop(this.lineLoopGeometry, this.lineLoopMaterial)
+    }
   }
 
   update () {
-    
+    // Mettez ici la logique de mise à jour pour les rotations et les translations.
+    const time = this.time.elapsed * 0.001; // Temps écoulé en secondes
+    const rotationSpeed = 0.5; // Vitesse de rotation
+
+
+    this.starGroups.forEach(group => {
+      const subGroup = group.children[1]
+      const star = subGroup.children[0]
+      
+      // Rotation continue de la sphère sur elle-même
+      star.rotation.x += rotationSpeed * this.time.delta
+      star.rotation.y += rotationSpeed * this.time.delta
+
+      // Translation continue du groupe pour faire une révolution autour du centre
+      const radius = 5; // Rayon de la révolution
+      const centerX = 0;
+      const centerZ = 0;
+      const x = radius * Math.cos(time); // Utilisation de trigonométrie pour obtenir la position en x
+      const z = radius * Math.sin(time); // Utilisation de trigonométrie pour obtenir la position en z
+      subGroup.position.set(centerX + x, 0, centerZ + z);
+    })
   }
 }
