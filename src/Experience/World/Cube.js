@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
-import Stats from 'three/addons/libs/stats.module.js'
 
 export default class Cube {
   constructor () {
@@ -16,8 +15,6 @@ export default class Cube {
       gpuMemory: 0
     }
 
-    this.stats = new Stats()
-
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder('environment')
 
@@ -26,7 +23,7 @@ export default class Cube {
         .min(1)
         .max(10000)
         .step(1)
-        .onChange(() => this.initMesh())
+        .onChange(() => this.makeInstancedMeshes())
       
       this.debugFolder
         .add(this.debugApi, 'gpuMemory')
@@ -39,7 +36,7 @@ export default class Cube {
     this.setMaterial()
     this.setMesh()
       
-    this.initMesh()
+    this.meshes = this.makeInstancedMeshes()
   }
 
   setGeometry () {
@@ -56,14 +53,6 @@ export default class Cube {
     this.mesh.receiveShadow = true
     this.scene.add(this.mesh)
   }
-
-
-
-  initMesh () {
-    this.cleanMeshes()
-    this.makeInstanced()
-  }
-
 
   cleanMeshes () {
     const meshes = []
@@ -82,11 +71,7 @@ export default class Cube {
     }
   }
 
-  update () {
-    this.stats.update()
-  }
-
-  makeInstanced () {
+  makeInstancedMeshes () {
     const mesh = new THREE.InstancedMesh(this.geometry, this.material, this.debugApi.count);
   
     for (let i = 0; i < this.debugApi.count; i++) {
@@ -110,7 +95,8 @@ export default class Cube {
       mesh.setMatrixAt(i, matrix);
     }
   
-    this.scene.add(mesh);
+    this.scene.add(mesh)
+    console.log(mesh)
   
     const geometryByteLength = this.getGeometryByteLength(this.geometry);
     this.debugApi.gpuMemory = this.formatBytes(this.debugApi.count * 16 + geometryByteLength, 2)
@@ -141,5 +127,9 @@ export default class Cube {
     const i = Math.floor(Math.log(bytes) / Math.log(k))
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+  }
+
+  update () {
+    
   }
 }
