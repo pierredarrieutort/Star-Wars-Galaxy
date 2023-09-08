@@ -10,10 +10,13 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.4",
+    "@types/three": "^0.155.1",
     "typescript": "^5.2.2",
     "vite": "^4.4.9"
   },
   "dependencies": {
-    "leaflet": "^1.7.1"
+    "leaflet": "1.7.1",
+    "lil-gui": "^0.18.2",
+    "three": "^0.156.1"
   }
 }
