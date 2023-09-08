@@ -7,11 +7,12 @@ export default class Cube {
     this.scene = this.experience.scene
     this.resources = this.experience.resources
     this.debug = this.experience.debug
+    this.time = this.experience.time
 
     // Debug
 
     this.debugApi = {
-      count: 1000,
+      count: 50,
       gpuMemory: 0
     }
 
@@ -21,10 +22,13 @@ export default class Cube {
       this.debugFolder
         .add(this.debugApi, 'count')
         .min(1)
-        .max(10000)
+        .max(1000)
         .step(1)
-        .onChange(() => this.makeInstancedMeshes())
-      
+        .onChange(() => {
+          this.cleanMeshes()
+          this.makeInstancedMeshes()
+        })
+
       this.debugFolder
         .add(this.debugApi, 'gpuMemory')
         .name('GPU memory')
@@ -35,7 +39,7 @@ export default class Cube {
     this.setGeometry()
     this.setMaterial()
     this.setMesh()
-      
+
     this.meshes = this.makeInstancedMeshes()
   }
 
@@ -72,36 +76,35 @@ export default class Cube {
   }
 
   makeInstancedMeshes () {
-    const mesh = new THREE.InstancedMesh(this.geometry, this.material, this.debugApi.count);
-  
+    this.instancedMesh = new THREE.InstancedMesh(this.geometry, this.material, this.debugApi.count)
+
     for (let i = 0; i < this.debugApi.count; i++) {
       const position = new THREE.Vector3(
-        Math.random() * 40 - 20,
-        Math.random() * 40 - 20,
-        Math.random() * 40 - 20
-      );
-  
-      const quaternion = new THREE.Quaternion().random();
-  
+        Math.random() * 10 - 5,
+        Math.random() * 10 - 5,
+        Math.random() * 10 - 5
+      )
+
+      const quaternion = new THREE.Quaternion().random()
+
       const scale = new THREE.Vector3(
         Math.random(),
         Math.random(),
         Math.random()
-      );
-  
-      const matrix = new THREE.Matrix4();
-      matrix.compose(position, quaternion, scale);
-  
-      mesh.setMatrixAt(i, matrix);
+      )
+
+      const matrix = new THREE.Matrix4()
+      matrix.compose(position, quaternion, scale)
+
+      this.instancedMesh.setMatrixAt(i, matrix)
     }
-  
-    this.scene.add(mesh)
-    console.log(mesh)
-  
+
+    this.scene.add(this.instancedMesh)
+
     const geometryByteLength = this.getGeometryByteLength(this.geometry);
     this.debugApi.gpuMemory = this.formatBytes(this.debugApi.count * 16 + geometryByteLength, 2)
   }
-  
+
 
   getGeometryByteLength = () => {
     let total = 0
