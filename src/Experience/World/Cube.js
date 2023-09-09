@@ -14,13 +14,20 @@ export default class Cube {
       this.scene.add(axesHelper)
     }
 
-    this.starGroups = []
+    this.starGroups = [
+      this.createStar({
+        size: .5,
+        x: 2,
+        z: 7
+      }),
+      this.createStar({
+        size: .5,
+        x: 8,
+        z: 2
+      })
+    ]
 
-    this.createStar({
-      size: .5,
-      x: 5,
-      y: 5
-    })
+    this.updates = 0
   }
 
   createStar (starData) {
@@ -30,7 +37,7 @@ export default class Cube {
     const { sphere, lineLoop } = this.createElements()
 
     const subGroup = new THREE.Group()
-    subGroup.position.set(starData.x, 0, starData.y)
+    subGroup.position.set(starData.x, 0, starData.z)
     subGroup.add(sphere)
 
     const parentGroup = new THREE.Group()
@@ -38,16 +45,16 @@ export default class Cube {
 
     parentGroup.setRotationFromEuler(new THREE.Euler(Math.PI / 8))
 
-    this.starGroups.push(parentGroup)
-
     this.scene.add(parentGroup)
+
+    return [parentGroup, starData]
   }
 
-  setGeometries ({ size, x, y }) {
-    this.sphereGeometry = new THREE.SphereGeometry(size, 32, 32)
+  setGeometries ({ size, x, z }) {
+    this.sphereGeometry = new THREE.BoxGeometry(size, 1, 1)
 
-
-    const curve = new THREE.EllipseCurve(0, 0, x, y)
+    const maxSize = Math.max(x, z)
+    const curve = new THREE.EllipseCurve(0, 0, maxSize, maxSize)
 
     const pts = curve.getSpacedPoints(256)
     this.lineLoopGeometry = new THREE.BufferGeometry().setFromPoints(pts)
@@ -67,26 +74,35 @@ export default class Cube {
   }
 
   update () {
+    // if (this.updates >= 1000) {
+    //   return
+    // }
+
     // Mettez ici la logique de mise à jour pour les rotations et les translations.
     const time = this.time.elapsed * 0.001; // Temps écoulé en secondes
-    const rotationSpeed = 0.5; // Vitesse de rotation
+    const rotationSpeed = 0.005; // Vitesse de rotation
 
 
-    this.starGroups.forEach(group => {
-      const subGroup = group.children[1]
-      const star = subGroup.children[0]
-      
+    this.starGroups.forEach(([parentGroup, starData], i) => {
+      const [lineLoop, subGroup] = parentGroup.children
+      const [star] = subGroup.children
+
       // Rotation continue de la sphère sur elle-même
-      star.rotation.x += rotationSpeed * this.time.delta
-      star.rotation.y += rotationSpeed * this.time.delta
+      star.rotation.x += rotationSpeed
+      star.rotation.y += rotationSpeed
 
-      // Translation continue du groupe pour faire une révolution autour du centre
-      const radius = 5; // Rayon de la révolution
-      const centerX = 0;
-      const centerZ = 0;
-      const x = radius * Math.cos(time); // Utilisation de trigonométrie pour obtenir la position en x
-      const z = radius * Math.sin(time); // Utilisation de trigonométrie pour obtenir la position en z
-      subGroup.position.set(centerX + x, 0, centerZ + z);
+      const radius = Math.max(starData.x, starData.z); // Rayon de la révolution
+
+      // Calcul de l'angle en fonction de la position initiale de l'élément
+      const angle = Math.atan2(starData.z, starData.x);
+    
+      subGroup.position.x = Math.cos(time + angle) * radius;
+      subGroup.position.z = Math.sin(time + angle) * radius;
+
+      // startAngle = posX / posZ -> Math.PI + angle déterminé
+      // math cos (time + startAngle)
+
+      this.updates++
     })
   }
 }
