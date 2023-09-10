@@ -72,26 +72,21 @@ export default class Cube {
   }
 
   update () {
-    // Mettez ici la logique de mise à jour pour les rotations et les translations.
-    const time = this.time.elapsed // Temps écoulé en secondes
-    const rotationSpeed = 0.005 // Vitesse de rotation
-
-
-    this.starGroups.forEach(([parentGroup, starData], i) => {
+    this.starGroups.forEach(([parentGroup, starData]) => {
       const [lineLoop, subGroup] = parentGroup.children
       const [star] = subGroup.children
 
       // Rotation continue de la sphère sur elle-même
-      star.rotation.x = time + rotationSpeed
-      star.rotation.y = time + rotationSpeed
+      star.rotation.x = this.time.elapsed
+      star.rotation.y = this.time.elapsed
 
       const radius = Math.max(starData.x, starData.z) // Rayon de la révolution
 
       // Calcul de l'angle en fonction de la position initiale de l'élément
       const angle = Math.atan2(starData.z, starData.x)
     
-      subGroup.position.x = Math.cos(time + angle) * radius
-      subGroup.position.z = Math.sin(time + angle) * radius
+      subGroup.position.x = Math.cos(this.time.elapsed + angle) * radius
+      subGroup.position.z = Math.sin(this.time.elapsed + angle) * radius
     })
   }
 }
