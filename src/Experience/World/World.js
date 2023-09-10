@@ -1,6 +1,6 @@
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
-import Cube from './Cube.js'
+import Planets from './Planets.js'
 
 export default class World {
     constructor () {
@@ -19,11 +19,11 @@ export default class World {
 
     setupWorld () {
         // Setup
-        this.cube = new Cube()
+        this.planets = new Planets()
         this.environment = new Environment()
     }
 
     update () {
-        this.cube?.update()
+        this.planets?.update()
     }
 }

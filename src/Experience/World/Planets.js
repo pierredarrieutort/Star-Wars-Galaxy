@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import raw_geojson from '../../data-preparation/data/raw_geojson.ts'
 
-export default class Cube {
+export default class Planets {
   constructor () {
     this.experience = new Experience()
     this.scene = this.experience.scene
@@ -13,7 +14,7 @@ export default class Cube {
       const axesHelper = new THREE.AxesHelper(3)
       this.scene.add(axesHelper)
     }
-
+    console.log(raw_geojson)
     this.starGroups = [
       this.createStar({
         size: .5,
