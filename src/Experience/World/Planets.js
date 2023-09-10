@@ -16,11 +16,17 @@ export default class Planets {
       this.scene.add(axesHelper)
     }
 
+    this.rotationSpeed = .05
+
     this.setMaterials()
 
-    this.sphereGeometry = new THREE.BoxGeometry()
+    this.sphereGeometry = new THREE.SphereGeometry()
 
-    // console.log(cleanedGeoJSON.map(el => el.geometry.coordinates))
+    // console.log(
+    //   cleanedGeoJSON.map(el => (
+    //     { x: el.geometry.coordinates[0], y: el.geometry.coordinates[1] }
+    //   ))
+    // )
 
     this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
   }
@@ -87,7 +93,7 @@ export default class Planets {
 
   update () {
     const intersects = this.raycaster.intersects
-      .find(el => el.object.geometry instanceof THREE.BoxGeometry)
+      .find(el => el.object.geometry instanceof THREE.SphereGeometry)
 
     if (intersects) {
       console.log(intersects.object.parent.parent.userData)
@@ -100,12 +106,12 @@ export default class Planets {
       const { offsetAngle, radius } = userData.geometry
 
       // Rotation continue de la sphère sur elle-même
-      star.rotation.x = this.time.elapsed
-      star.rotation.y = this.time.elapsed
+      star.rotation.x = this.time.elapsed * this.rotationSpeed
+      star.rotation.y = this.time.elapsed * this.rotationSpeed
 
       // Rotation continue de la sphère autour du centre
-      subGroup.position.x = Math.cos(this.time.elapsed + offsetAngle) * radius
-      subGroup.position.z = Math.sin(this.time.elapsed + offsetAngle) * radius
+      subGroup.position.x = Math.cos(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
+      subGroup.position.z = Math.sin(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
     })
   }
 }
