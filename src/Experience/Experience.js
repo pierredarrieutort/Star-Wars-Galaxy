@@ -9,6 +9,7 @@ import World from './World/World.js'
 import Resources from './Utils/Resources.js'
 
 import sources from './sources.js'
+import Raycaster from './Utils/Raycaster.js'
 
 let instance = null
 
@@ -35,6 +36,7 @@ export default class Experience {
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.world = new World()
+        this.raycaster = new Raycaster()
 
         this.sizes.on('resize', () => this.resize())
 
@@ -56,6 +58,7 @@ export default class Experience {
 
     destroy () {
         this.sizes.off('resize')
+        this.raycaster.destroy()
 
         // Traverse the whole scene
         this.scene.traverse((child) => {

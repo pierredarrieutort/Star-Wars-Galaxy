@@ -15,32 +15,32 @@ export default class Planets {
       this.scene.add(axesHelper)
     }
 
-    // cleanedGeoJSON.length = 10
+    cleanedGeoJSON.length = 10
     // console.log(cleanedGeoJSON[0].geometry.coordinates)
-    // console.log(cleanedGeoJSON.map(el => el.geometry.coordinates))
+    console.log(cleanedGeoJSON.map(el => el.geometry.coordinates))
 
-    // this.starGroups = cleanedGeoJSON.map(el => {
-    //   const [x, z] = el.geometry.coordinates
+    this.starGroups = cleanedGeoJSON.map(el => {
+      const [x, z] = el.geometry.coordinates
 
-    //   return this.createStar({
-    //     size: .5,
-    //     x: x,
-    //     z: z
-    //   })
-    // })
-
-    this.starGroups = [
-      // this.createStar({
-      //   size: 3,
-      //   x: 60,
-      //   z: 120
-      // }),
-      this.createStar({
-        size: 3,
-        x: 70,
-        z: 90
+      return this.createStar({
+        size: .5,
+        x: x,
+        z: z
       })
-    ]
+    })
+
+    // this.starGroups = [
+    //   // this.createStar({
+    //   //   size: 3,
+    //   //   x: 60,
+    //   //   z: 120
+    //   // }),
+    //   this.createStar({
+    //     size: 3,
+    //     x: 70,
+    //     z: 90
+    //   })
+    // ]
   }
 
   createStar (starData) {
@@ -83,7 +83,11 @@ export default class Planets {
 
   setMaterials () {
     this.sphereMaterial = new THREE.MeshLambertMaterial()
-    this.lineLoopMaterial = new THREE.LineBasicMaterial({ color: 0xFF00FF })
+    this.lineLoopMaterial = new THREE.LineBasicMaterial({
+      color: 0xFF00FF,
+      transparent: true,
+      opacity: 0.1
+    })
   }
 
   createElements () {
