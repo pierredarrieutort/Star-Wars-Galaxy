@@ -12,7 +12,7 @@ export default class Planets {
     this.raycaster = this.experience.raycaster
 
     if (this.debug.active) {
-      const axesHelper = new THREE.AxesHelper(3)
+      const axesHelper = new THREE.AxesHelper(25)
       this.scene.add(axesHelper)
     }
 
@@ -22,20 +22,14 @@ export default class Planets {
 
     this.sphereGeometry = new THREE.SphereGeometry()
 
-    // console.log(
-    //   cleanedGeoJSON.map(el => (
-    //     { x: el.geometry.coordinates[0], y: el.geometry.coordinates[1] }
-    //   ))
-    // )
-
     this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
   }
 
   createStar (starData) {
-    const [x, z] = starData.geometry.coordinates
+    const { x, z } = starData.geometry.coordinates
 
     //? Mocking size before using Diameter value.
-    starData.geometry.size = Math.random() * 5 + 1
+    starData.geometry.size = Math.random() * .2 + .1
 
     // Calcul de l'hypoténuse des coordonnées pour obtenir le radius depuis le centre de la scène.
     starData.geometry.radius = Math.sqrt(x ** 2 + z ** 2)
@@ -96,7 +90,10 @@ export default class Planets {
       .find(el => el.object.geometry instanceof THREE.SphereGeometry)
 
     if (intersects) {
-      console.log(intersects.object.parent.parent.userData)
+      console.log(
+        intersects.object.parent.parent.userData.properties.name,
+        intersects.object.parent.parent.userData.geometry.coordinates,
+      )
     }
 
     this.starGroups.forEach(parentGroup => {
