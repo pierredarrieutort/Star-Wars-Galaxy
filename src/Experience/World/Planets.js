@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
-import raw_geojson from '../../data-preparation/data/raw_geojson.ts'
+import cleanedGeoJSON from '../../data-preparation/index.ts'
 
 export default class Planets {
   constructor () {
@@ -14,17 +14,31 @@ export default class Planets {
       const axesHelper = new THREE.AxesHelper(3)
       this.scene.add(axesHelper)
     }
-    console.log(raw_geojson)
+
+    // cleanedGeoJSON.length = 10
+    // console.log(cleanedGeoJSON[0].geometry.coordinates)
+    // console.log(cleanedGeoJSON.map(el => el.geometry.coordinates))
+
+    // this.starGroups = cleanedGeoJSON.map(el => {
+    //   const [x, z] = el.geometry.coordinates
+
+    //   return this.createStar({
+    //     size: .5,
+    //     x: x,
+    //     z: z
+    //   })
+    // })
+
     this.starGroups = [
+      // this.createStar({
+      //   size: 3,
+      //   x: 60,
+      //   z: 120
+      // }),
       this.createStar({
-        size: .5,
-        x: 2,
-        z: 7
-      }),
-      this.createStar({
-        size: .5,
-        x: 8,
-        z: 2
+        size: 3,
+        x: 70,
+        z: 90
       })
     ]
   }
@@ -42,7 +56,7 @@ export default class Planets {
     const parentGroup = new THREE.Group()
     parentGroup.add(lineLoop, subGroup)
 
-    parentGroup.setRotationFromEuler(new THREE.Euler(Math.PI / 8))
+    parentGroup.rotateX(Math.PI / 8)
 
     this.scene.add(parentGroup)
 
@@ -50,10 +64,10 @@ export default class Planets {
   }
 
   setGeometries ({ size, x, z }) {
-    this.sphereGeometry = new THREE.BoxGeometry(size, 1, 1)
+    this.sphereGeometry = new THREE.BoxGeometry(size, size, size)
 
-    const maxSize = Math.max(x, z)
-    const curve = new THREE.EllipseCurve(0, 0, maxSize, maxSize)
+    const hypotenuse = Math.sqrt(x ** 2 + z ** 2)
+    const curve = new THREE.EllipseCurve(0, 0, hypotenuse, hypotenuse)
 
     const pts = curve.getSpacedPoints(256)
     this.lineLoopGeometry = new THREE.BufferGeometry().setFromPoints(pts)
@@ -81,11 +95,14 @@ export default class Planets {
       star.rotation.x = this.time.elapsed
       star.rotation.y = this.time.elapsed
 
-      const radius = Math.max(starData.x, starData.z) // Rayon de la révolution
+      const radius = Math.sqrt(starData.x ** 2 + starData.z ** 2) // Rayon de la révolution
 
       // Calcul de l'angle en fonction de la position initiale de l'élément
       const angle = Math.atan2(starData.z, starData.x)
-    
+
+
+      // console.log(lineLoop.getWorldPosition(new THREE.Vector3()))
+      // console.log(lineLoop, subGroup.position.x, subGroup.position.z)
       subGroup.position.x = Math.cos(this.time.elapsed + angle) * radius
       subGroup.position.z = Math.sin(this.time.elapsed + angle) * radius
     })
