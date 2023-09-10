@@ -17,26 +17,12 @@ export default class Planets {
     }
 
     this.setMaterials()
+
     this.sphereGeometry = new THREE.BoxGeometry()
 
-    // cleanedGeoJSON.length = 10
-    // console.log(cleanedGeoJSON[0].geometry.coordinates)
     // console.log(cleanedGeoJSON.map(el => el.geometry.coordinates))
 
     this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
-
-    // this.starGroups = [
-    //   // this.createStar({
-    //   //   size: 3,
-    //   //   x: 60,
-    //   //   z: 120
-    //   // }),
-    //   this.createStar({
-    //     size: 3,
-    //     x: 70,
-    //     z: 90
-    //   })
-    // ]
   }
 
   createStar (starData) {
