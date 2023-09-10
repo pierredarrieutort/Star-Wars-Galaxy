@@ -30,7 +30,6 @@ export default class Raycaster {
 
     // Vérifiez s'il y a une intersection entre le rayon et le mesh
     this.intersects = this.instance.intersectObject(this.scene, true)
-    console.log(this.intersects)
   }
 
   destroy () {

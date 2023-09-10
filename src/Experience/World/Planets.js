@@ -9,25 +9,21 @@ export default class Planets {
     this.resources = this.experience.resources
     this.debug = this.experience.debug
     this.time = this.experience.time
+    this.raycaster = this.experience.raycaster
 
     if (this.debug.active) {
       const axesHelper = new THREE.AxesHelper(3)
       this.scene.add(axesHelper)
     }
 
-    cleanedGeoJSON.length = 10
+    this.setMaterials()
+    this.sphereGeometry = new THREE.BoxGeometry()
+
+    // cleanedGeoJSON.length = 10
     // console.log(cleanedGeoJSON[0].geometry.coordinates)
-    console.log(cleanedGeoJSON.map(el => el.geometry.coordinates))
+    // console.log(cleanedGeoJSON.map(el => el.geometry.coordinates))
 
-    this.starGroups = cleanedGeoJSON.map(el => {
-      const [x, z] = el.geometry.coordinates
-
-      return this.createStar({
-        size: .5,
-        x: x,
-        z: z
-      })
-    })
+    this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
 
     // this.starGroups = [
     //   // this.createStar({
@@ -44,41 +40,38 @@ export default class Planets {
   }
 
   createStar (starData) {
-    this.setGeometries(starData)
-    this.setMaterials()
+    const [x, z] = starData.geometry.coordinates
 
-    const { sphere, lineLoop } = this.createElements()
+    //? Mocking size before using Diameter value.
+    starData.geometry.size = Math.random() * 5 + 1
+
+    // Calcul de l'hypoténuse des coordonnées pour obtenir le radius depuis le centre de la scène.
+    starData.geometry.radius = Math.sqrt(x ** 2 + z ** 2)
+
+    // Calcul de l'angle en fonction de la position initiale de l'élément.
+    starData.geometry.offsetAngle = Math.atan2(z, x)
+
+    const { sphere, lineLoop } = this.createElements(starData)
+
+    // Le "subGroup" sert à gérer la planète et les potentielles lunes.
+    // Le "parentGroup" sert à gérer les potentielles rotations de la planètes et ses lunes.
+    // Il sert aussi à ajouter le cercle de révolution et effectuer
+    // des actions sur le cercle et le subGroup en même temps (ex: inclinaison du plan de révolution).
 
     const subGroup = new THREE.Group()
-    subGroup.position.set(starData.x, 0, starData.z)
+    const parentGroup = new THREE.Group()
+
+    subGroup.position.set(x, 0, z)
     subGroup.add(sphere)
 
-    const parentGroup = new THREE.Group()
-    parentGroup.add(lineLoop, subGroup)
-
-    parentGroup.rotateX(Math.PI / 8)
+    parentGroup
+      .add(lineLoop, subGroup)
+      .rotateX(Math.PI / 8)
+      .userData = starData
 
     this.scene.add(parentGroup)
 
-    // Calcul de l'angle en fonction de la position initiale de l'élément
-    starData.offsetAngle = Math.atan2(starData.z, starData.x)
-
-    return [parentGroup, starData]
-  }
-
-  setGeometries (starData) {
-    const { size, x, z } = starData
-
-    this.sphereGeometry = new THREE.BoxGeometry(size, size, size)
-
-    const hypotenuse = Math.sqrt(x ** 2 + z ** 2)
-    starData.radius = hypotenuse
-
-    const curve = new THREE.EllipseCurve(0, 0, hypotenuse, hypotenuse)
-
-    const pts = curve.getSpacedPoints(256)
-    this.lineLoopGeometry = new THREE.BufferGeometry().setFromPoints(pts)
-    this.lineLoopGeometry.rotateX(Math.PI / 2)
+    return parentGroup
   }
 
   setMaterials () {
@@ -90,25 +83,43 @@ export default class Planets {
     })
   }
 
-  createElements () {
+  createElements (starData) {
+    const _sphereGeometry = this.sphereGeometry.clone()
+    _sphereGeometry.scale(starData.geometry.size, starData.geometry.size, starData.geometry.size)
+
+    const curve = new THREE.EllipseCurve(0, 0, starData.geometry.radius, starData.geometry.radius)
+    const pts = curve.getSpacedPoints(256)
+    const _lineLoopGeometry = new THREE.BufferGeometry()
+      .setFromPoints(pts)
+      .rotateX(Math.PI / 2)
+
     return {
-      sphere: new THREE.Mesh(this.sphereGeometry, this.sphereMaterial),
-      lineLoop: new THREE.LineLoop(this.lineLoopGeometry, this.lineLoopMaterial)
+      sphere: new THREE.Mesh(_sphereGeometry, this.sphereMaterial),
+      lineLoop: new THREE.LineLoop(_lineLoopGeometry, this.lineLoopMaterial)
     }
   }
 
   update () {
-    this.starGroups.forEach(([parentGroup, starData]) => {
-      const [lineLoop, subGroup] = parentGroup.children
+    const intersects = this.raycaster.intersects
+      .find(el => el.object.geometry instanceof THREE.BoxGeometry)
+
+    if (intersects) {
+      console.log(intersects.object.parent.parent.userData)
+    }
+
+    this.starGroups.forEach(parentGroup => {
+      const { children, userData } = parentGroup
+      const [lineLoop, subGroup] = children
       const [star] = subGroup.children
+      const { offsetAngle, radius } = userData.geometry
 
       // Rotation continue de la sphère sur elle-même
       star.rotation.x = this.time.elapsed
       star.rotation.y = this.time.elapsed
 
       // Rotation continue de la sphère autour du centre
-      subGroup.position.x = Math.cos(this.time.elapsed + starData.offsetAngle) * starData.radius
-      subGroup.position.z = Math.sin(this.time.elapsed + starData.offsetAngle) * starData.radius
+      subGroup.position.x = Math.cos(this.time.elapsed + offsetAngle) * radius
+      subGroup.position.z = Math.sin(this.time.elapsed + offsetAngle) * radius
     })
   }
 }
