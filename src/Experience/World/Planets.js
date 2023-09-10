@@ -60,13 +60,20 @@ export default class Planets {
 
     this.scene.add(parentGroup)
 
+    // Calcul de l'angle en fonction de la position initiale de l'élément
+    starData.offsetAngle = Math.atan2(starData.z, starData.x)
+
     return [parentGroup, starData]
   }
 
-  setGeometries ({ size, x, z }) {
+  setGeometries (starData) {
+    const { size, x, z } = starData
+
     this.sphereGeometry = new THREE.BoxGeometry(size, size, size)
 
     const hypotenuse = Math.sqrt(x ** 2 + z ** 2)
+    starData.radius = hypotenuse
+
     const curve = new THREE.EllipseCurve(0, 0, hypotenuse, hypotenuse)
 
     const pts = curve.getSpacedPoints(256)
@@ -95,16 +102,9 @@ export default class Planets {
       star.rotation.x = this.time.elapsed
       star.rotation.y = this.time.elapsed
 
-      const radius = Math.sqrt(starData.x ** 2 + starData.z ** 2) // Rayon de la révolution
-
-      // Calcul de l'angle en fonction de la position initiale de l'élément
-      const angle = Math.atan2(starData.z, starData.x)
-
-
-      // console.log(lineLoop.getWorldPosition(new THREE.Vector3()))
-      // console.log(lineLoop, subGroup.position.x, subGroup.position.z)
-      subGroup.position.x = Math.cos(this.time.elapsed + angle) * radius
-      subGroup.position.z = Math.sin(this.time.elapsed + angle) * radius
+      // Rotation continue de la sphère autour du centre
+      subGroup.position.x = Math.cos(this.time.elapsed + starData.offsetAngle) * starData.radius
+      subGroup.position.z = Math.sin(this.time.elapsed + starData.offsetAngle) * starData.radius
     })
   }
 }
