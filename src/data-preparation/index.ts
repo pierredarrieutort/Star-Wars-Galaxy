@@ -2,7 +2,10 @@ import geojson from './data/raw_geojson'
 import extractPopupContent from './helpers/extractPopupContent'
 
 // Get only points at this time
-const points = geojson.features.filter(obj => obj.geometry.type === 'Point')
+const points = geojson.features
+  .filter(
+    obj => obj.geometry.type === 'Point' && obj.properties.tooltipContent !== 'Look revealing label!'
+  )
 
 for (const pointIndex in points) {
   const point = points[pointIndex]
