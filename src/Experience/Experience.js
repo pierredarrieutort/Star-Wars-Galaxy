@@ -57,7 +57,7 @@ export default class Experience {
     }
 
     destroy () {
-        this.sizes.off('resize')
+        this.sizes.destroy()
         this.raycaster.destroy()
 
         // Traverse the whole scene

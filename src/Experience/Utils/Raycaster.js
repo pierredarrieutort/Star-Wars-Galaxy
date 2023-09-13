@@ -1,8 +1,11 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import EventEmitter from './EventEmitter.js'
 
-export default class Raycaster {
+export default class Raycaster extends EventEmitter {
   constructor () {
+    super()
+
     this.experience = new Experience()
     this.scene = this.experience.scene
     this.camera = this.experience.camera.instance
@@ -15,10 +18,14 @@ export default class Raycaster {
 
     // "this._internalRaycastReference" is used to make a save of the
     // function reference and keep binding to properly destroy it if necessary.
-    this._internalRaycastReference = e => this.raycast(e)
+    this._internalRaycastReference = e => {
+      this.raycast(e)
+      this.trigger('raycast')
+    }
 
     window.addEventListener('mousemove', this._internalRaycastReference, { passive: true })
   }
+  
 
   raycast (e) {
     // Calculez la position normalisée de la souris
@@ -34,5 +41,6 @@ export default class Raycaster {
 
   destroy () {
     window.removeEventListener('mousemove', this._internalRaycastReference, { passive: true })
+    this.off('raycast')
   }
 }
