@@ -23,24 +23,23 @@ export default class Raycaster extends EventEmitter {
       this.trigger('raycast')
     }
 
-    window.addEventListener('mousemove', this._internalRaycastReference, { passive: true })
+    // window.addEventListener('mousemove', this._internalRaycastReference, { passive: true })
+    window.addEventListener('click', this._internalRaycastReference, { passive: true })
   }
   
 
   raycast (e) {
-    // Calculez la position normalisée de la souris
     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
 
-    // Mettez à jour le rayon de la souris
     this.instance.setFromCamera(this.mouse, this.camera)
 
-    // Vérifiez s'il y a une intersection entre le rayon et le mesh
     this.intersects = this.instance.intersectObject(this.scene, true)
   }
 
   destroy () {
-    window.removeEventListener('mousemove', this._internalRaycastReference, { passive: true })
+    // window.removeEventListener('mousemove', this._internalRaycastReference, { passive: true })
+    window.removeEventListener('click', this._internalRaycastReference, { passive: true })
     this.off('raycast')
   }
 }
