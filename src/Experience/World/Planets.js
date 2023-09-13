@@ -60,7 +60,7 @@ export default class Planets {
 
     parentGroup
       .add(lineLoop, subGroup)
-      .rotateX(Math.PI / ((Math.random() / 10) - 1))
+      .rotateX(-Math.PI / ((Math.random() / 10) - 1) + Math.PI / 8)
       .rotateY(Math.PI / ((Math.random() / 10) - 1))
       .rotateZ(Math.PI / ((Math.random() / 10) - 1))
       .userData = starData
@@ -139,7 +139,7 @@ export default class Planets {
       star.rotation.x = this.time.elapsed * this.rotationSpeed
       star.rotation.y = this.time.elapsed * this.rotationSpeed
 
-      // Rotation continue de la sphère autour du centre
+      // Rotation continue de chaque sphère autour du centre
       subGroup.position.x = Math.cos(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
       subGroup.position.z = Math.sin(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
     })
