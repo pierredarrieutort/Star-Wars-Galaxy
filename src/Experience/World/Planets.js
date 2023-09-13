@@ -19,10 +19,14 @@ export default class Planets {
     }
 
     this.rotationSpeed = .05
+    this.sphereGeometry = new THREE.SphereGeometry()
+
+    // latestHoveredIntersect handle when the mouse modev but stopped, trying to click
+    // on element but element is not under the pointer anymore,
+    // it stores the last element hovered.
+    this.latestHoveredIntersect = null
 
     this.setMaterials()
-
-    this.sphereGeometry = new THREE.SphereGeometry()
 
     this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
 
@@ -103,6 +107,8 @@ export default class Planets {
           intersects.object.parent.parent.userData.properties.name,
           intersects.object.parent.parent.userData
         )
+      } else {
+        this.latestHoveredIntersect = intersects.object.parent
       }
 
       this.canvas.style.cursor = 'pointer'
@@ -110,9 +116,15 @@ export default class Planets {
       this.canvas.style.removeProperty('cursor')
 
       if (e.type === 'click') {
-        this.camera.resettingControlsToWorldCenter = true
-        this.camera.resetCameraToWorldCenter()
+        if (this.camera.followingMesh) {
+          this.camera.resettingControlsToWorldCenter = true
+          this.camera.resetCameraToWorldCenter()
+        } else {
+          this.camera.followingMesh = this.latestHoveredIntersect
+        }
       }
+
+      this.latestHoveredIntersect = null
     }
   }
 
