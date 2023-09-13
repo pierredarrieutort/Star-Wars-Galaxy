@@ -10,6 +10,7 @@ export default class Planets {
     this.debug = this.experience.debug
     this.time = this.experience.time
     this.raycaster = this.experience.raycaster
+    this.camera = this.experience.camera
 
     if (this.debug.active) {
       const axesHelper = new THREE.AxesHelper(25)
@@ -54,7 +55,9 @@ export default class Planets {
 
     parentGroup
       .add(lineLoop, subGroup)
-      .rotateX(Math.PI / 8)
+      .rotateX(Math.PI / ((Math.random() / 10) - 1))
+      .rotateY(Math.PI / ((Math.random() / 10) - 1))
+      .rotateZ(Math.PI / ((Math.random() / 10) - 1))
       .userData = starData
 
     this.scene.add(parentGroup)
@@ -67,7 +70,7 @@ export default class Planets {
     this.lineLoopMaterial = new THREE.LineBasicMaterial({
       color: 0xFF00FF,
       transparent: true,
-      opacity: 0.1
+      opacity: 0.03
     })
   }
 
@@ -92,10 +95,12 @@ export default class Planets {
       .find(el => el.object.geometry instanceof THREE.SphereGeometry)
 
     if (intersects) {
-      console.log(
-        intersects.object.parent.parent.userData.properties.name,
-        intersects.object.parent.parent.userData.geometry.coordinates
-      )
+      // console.log(
+      //   intersects.object.parent.parent.userData.properties.name,
+      //   intersects.object.parent.parent.userData.geometry.coordinates
+      // )
+
+      this.camera.followingMesh = intersects.object.parent
     }
   }
 
