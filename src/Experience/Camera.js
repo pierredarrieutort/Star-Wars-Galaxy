@@ -9,6 +9,10 @@ export default class Camera {
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
 
+        this.controlsTarget = new THREE.Vector3(0, 0, 0)
+        this.lerpSpeed = 0.05
+        this.followingMesh = null
+
         this.setInstance()
         this.setControls()
     }
@@ -16,13 +20,13 @@ export default class Camera {
     setInstance () {
         this.instance = new THREE.PerspectiveCamera(60, this.sizes.width / this.sizes.height, 0.1, 10000)
         this.instance.position.set(111, 27, 80)
-        this.instance.rotation.set(-0.32880510859616985, 0.9188469117645457, 0.26484212369454485)
         this.scene.add(this.instance)
     }
 
     setControls () {
         this.controls = new OrbitControls(this.instance, this.canvas)
         this.controls.enableDamping = true
+        this.controls.target = this.controlsTarget
     }
 
     resize () {
@@ -30,7 +34,32 @@ export default class Camera {
         this.instance.updateProjectionMatrix()
     }
 
+    followMesh () {
+        // Set a dummy vector to store mesh position.
+        const targetPosition = new THREE.Vector3()
+        this.followingMesh.getWorldPosition(targetPosition)
+
+        // Interpolate controlsTarget position with targetPosition.
+        this.controlsTarget.lerp(targetPosition, this.lerpSpeed)
+
+        if (this.instance.zoom < 15) {
+            this.instance.zoom += this.lerpSpeed
+            this.instance.updateProjectionMatrix()
+        }
+    }
+
+    resetCameraToWorldCenter () {
+        this.followingMesh = null
+        this.controls.target = new THREE.Vector3()
+        this.instance.zoom = 1
+        this.instance.updateProjectionMatrix()
+    }
+
     update () {
+        if (this.followingMesh) {
+            this.followMesh()
+        }
+
         this.controls.update()
     }
 }
