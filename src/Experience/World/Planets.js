@@ -23,6 +23,8 @@ export default class Planets {
     this.sphereGeometry = new THREE.SphereGeometry()
 
     this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
+
+    this.raycaster.on('raycast', () => this.isStarRaycasted())
   }
 
   createStar (starData) {
@@ -85,17 +87,19 @@ export default class Planets {
     }
   }
 
-  update () {
+  isStarRaycasted () {
     const intersects = this.raycaster.intersects
       .find(el => el.object.geometry instanceof THREE.SphereGeometry)
 
     if (intersects) {
       console.log(
         intersects.object.parent.parent.userData.properties.name,
-        intersects.object.parent.parent.userData.geometry.coordinates,
+        intersects.object.parent.parent.userData.geometry.coordinates
       )
     }
+  }
 
+  update () {
     this.starGroups.forEach(parentGroup => {
       const { children, userData } = parentGroup
       const [lineLoop, subGroup] = children
