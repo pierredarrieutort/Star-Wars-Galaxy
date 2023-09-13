@@ -11,6 +11,7 @@ export default class Planets {
     this.time = this.experience.time
     this.raycaster = this.experience.raycaster
     this.camera = this.experience.camera
+    this.canvas = this.experience.canvas
 
     if (this.debug.active) {
       const axesHelper = new THREE.AxesHelper(25)
@@ -25,7 +26,7 @@ export default class Planets {
 
     this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
 
-    this.raycaster.on('raycast', () => this.isStarRaycasted())
+    this.raycaster.on('raycast', e => this.isStarRaycasted(e))
   }
 
   createStar (starData) {
@@ -90,17 +91,28 @@ export default class Planets {
     }
   }
 
-  isStarRaycasted () {
+  isStarRaycasted (e) {
     const intersects = this.raycaster.intersects
       .find(el => el.object.geometry instanceof THREE.SphereGeometry)
 
     if (intersects) {
-      // console.log(
-      //   intersects.object.parent.parent.userData.properties.name,
-      //   intersects.object.parent.parent.userData.geometry.coordinates
-      // )
+      if (e.type === 'click') {
+        this.camera.followingMesh = intersects.object.parent
 
-      this.camera.followingMesh = intersects.object.parent
+        console.log(
+          intersects.object.parent.parent.userData.properties.name,
+          intersects.object.parent.parent.userData
+        )
+      }
+
+      this.canvas.style.cursor = 'pointer'
+    } else {
+      this.canvas.style.removeProperty('cursor')
+
+      if (e.type === 'click') {
+        this.camera.resettingControlsToWorldCenter = true
+        this.camera.resetCameraToWorldCenter()
+      }
     }
   }
 

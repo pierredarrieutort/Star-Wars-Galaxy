@@ -20,10 +20,10 @@ export default class Raycaster extends EventEmitter {
     // function reference and keep binding to properly destroy it if necessary.
     this._internalRaycastReference = e => {
       this.raycast(e)
-      this.trigger('raycast')
+      this.trigger('raycast', [e])
     }
 
-    // window.addEventListener('mousemove', this._internalRaycastReference, { passive: true })
+    window.addEventListener('mousemove', this._internalRaycastReference, { passive: true })
     window.addEventListener('click', this._internalRaycastReference, { passive: true })
   }
   
@@ -38,7 +38,7 @@ export default class Raycaster extends EventEmitter {
   }
 
   destroy () {
-    // window.removeEventListener('mousemove', this._internalRaycastReference, { passive: true })
+    window.removeEventListener('mousemove', this._internalRaycastReference, { passive: true })
     window.removeEventListener('click', this._internalRaycastReference, { passive: true })
     this.off('raycast')
   }
