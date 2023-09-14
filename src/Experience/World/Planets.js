@@ -13,11 +13,17 @@ export default class Planets {
     this.camera = this.experience.camera
     this.canvas = this.experience.canvas
 
+    this.rotationSpeed = .05
+
     if (this.debug.active) {
       this.debugPlanetsFolder = this.debug.ui.addFolder('Planets')
-    }
 
-    this.rotationSpeed = .05
+      this.debugPlanetsFolder
+        .add(this, 'rotationSpeed')
+        .min(-1)
+        .max(1)
+        .step(.1)
+    }
     this.sphereGeometry = new THREE.SphereGeometry()
 
     this.setMaterials()
