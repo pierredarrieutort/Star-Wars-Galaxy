@@ -13,6 +13,10 @@ export default class Planets {
     this.camera = this.experience.camera
     this.canvas = this.experience.canvas
 
+    if (this.debug.active) {
+      this.debugPlanetsFolder = this.debug.ui.addFolder('Planets')
+    }
+
     this.rotationSpeed = .05
     this.sphereGeometry = new THREE.SphereGeometry()
 
@@ -61,10 +65,24 @@ export default class Planets {
   setMaterials () {
     this.sphereMaterial = new THREE.MeshLambertMaterial()
     this.lineLoopMaterial = new THREE.LineBasicMaterial({
-      color: 0xFF00FF,
+      color: 0x0062FF,
       transparent: true,
       opacity: 0.03
     })
+
+    if (this.debug.active) {
+      const lineLoopDebugFolder = this.debugPlanetsFolder.addFolder('LineLoop')
+
+      lineLoopDebugFolder
+        .add(this.lineLoopMaterial, 'opacity')
+        .min(0)
+        .max(1)
+        .step(.1)
+        .name('LineLoop opacity')
+
+      lineLoopDebugFolder
+        .addColor(this.lineLoopMaterial, 'color')
+    }
   }
 
   createElements (starData) {
