@@ -29,10 +29,10 @@ export default class Experience {
         this.canvas = _canvas
 
         // Setup
-        this.debug = new Debug()
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
+        this.debug = new Debug()
         this.resources = new Resources(sources)
         this.mouse = new Mouse()
         this.camera = new Camera()

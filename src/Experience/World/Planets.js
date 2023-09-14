@@ -13,11 +13,6 @@ export default class Planets {
     this.camera = this.experience.camera
     this.canvas = this.experience.canvas
 
-    if (this.debug.active) {
-      const axesHelper = new THREE.AxesHelper(25)
-      this.scene.add(axesHelper)
-    }
-
     this.rotationSpeed = .05
     this.sphereGeometry = new THREE.SphereGeometry()
 
