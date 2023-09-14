@@ -10,6 +10,7 @@ import Resources from './Utils/Resources.js'
 
 import sources from './sources.js'
 import Raycaster from './Utils/Raycaster.js'
+import Mouse from './Utils/Mouse.js'
 
 let instance = null
 
@@ -33,6 +34,7 @@ export default class Experience {
         this.time = new Time()
         this.scene = new THREE.Scene()
         this.resources = new Resources(sources)
+        this.mouse = new Mouse()
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.raycaster = new Raycaster()
