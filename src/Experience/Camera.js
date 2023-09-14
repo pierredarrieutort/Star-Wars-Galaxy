@@ -50,17 +50,19 @@ export default class Camera {
     }
 
     resetCameraToWorldCenter () {
+        this.resettingControlsToWorldCenter = true
         this.followingMesh = null
-        this.controlsTarget.lerp(new THREE.Vector3(), this.lerpSpeed / 10)
 
         if (this.instance.zoom > 1) {
             this.instance.zoom -= this.lerpSpeed
+            this.controlsTarget.lerp(this.controls.target0, this.lerpSpeed)
+            this.instance.position.lerp(this.controls.position0, this.lerpSpeed)
             this.instance.updateProjectionMatrix()
         } else {
             const { x, y, z } = this.controlsTarget
             // Check if the center is visually reached, then consider camera is properly reseted.
             if (Math.abs(~~x) + Math.abs(~~y) + Math.abs(~~y) < 1) {
-                // Normalize the vector to 0.
+                // Normalize the vectors to 0.
                 this.controlsTarget.normalize()
                 // Confirm the reset is not anymore active.
                 this.resettingControlsToWorldCenter = false
