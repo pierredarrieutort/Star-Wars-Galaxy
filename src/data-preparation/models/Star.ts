@@ -6,10 +6,12 @@ export enum StarType {
   Planet,
   Moon,
   Planetoid,
+  System,
   IceAsteroidColony = 'Ice asteroid colony',
   AsteroidStation = 'Asteroid Station',
   SpaceStation = 'Space Station',
-  PlanetGasGiant = 'Planet (Gas Giant)'
+  PlanetGasGiant = 'Planet (Gas Giant)',
+  HyperspaceBeacon = 'Hyperspace beacon'
 }
 
 export enum AtmosphereType {
@@ -17,6 +19,7 @@ export enum AtmosphereType {
   inhospitableType1 = 'Type I (but inhospitable)',
   type2 = 'Type II',
   type3 = 'Type III',
+  type4 = 'Type IV',
   variable = 'variable'
 }
 

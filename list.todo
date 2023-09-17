@@ -1,0 +1,17 @@
+DATA EXTRACTION :
+- link planet to his icon (not his thumbnail).
+- Get wiki link from extract.
+- Try to properly displace points by substract base centering of them (var map = L.map('map', { crs: L.CRS.Simple }).setView([-121.75, 124.625], 0);
+- Deal with tooltipContent et popupContent (tooltip seems to be the label alaways visible, the popup is visible when clicked)(possibly just rename them explicitly).
+
+
+DOCUMENTATION :
+- continue documentation (not extractPopupContent but index.ts).
+- update star TS model with isCanon, lengends, etc...
+
+
+THEN :
+- Understand all icons types and document them (or rename them to be explicit).
+- think a solution for routes (using base coordinates, but our planet get coord edited).
+- Check if routes, passes, etc... have name in extract, if not think to a solution. (hard link from extract html).
+- split ./splitting_base.js to better view data (possibly useless).
