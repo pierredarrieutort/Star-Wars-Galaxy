@@ -1,3 +1,5 @@
+// This file will be cutted to be splitted as sub-files.
+
 import L from 'leaflet'
 import './helpers/vars_handler.js'
 
@@ -88,7 +90,7 @@ import {
   statonIcon2,
   clustrIcon,
   blkhleIcon
-} from './icons.js'
+} from '../icons.js'
 
 // Tokmia, Quesh, Pybus, -- Kokash, Botor -- Nar Kaaga, Allyuen?
 

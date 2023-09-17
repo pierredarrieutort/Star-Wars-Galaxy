@@ -1,0 +1,4 @@
+- link planet to his icon
+- Understand all icons types and document them
+- think a solution for routes (using base coordinates, but our planet get coord edited)
+- split ./splitting_base.js to better view data
