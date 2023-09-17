@@ -1,6 +1,8 @@
 import L from 'leaflet'
 import './helpers/vars_handler.js'
 
+new Date('2023-09-04T22:47:27Z')
+
 //Creating the Map
 L.CRS.MySimple = L.extend({}, L.CRS.Simple, {
   transformation: new L.Transformation(0, 2000, -1 / 75, 134)

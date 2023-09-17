@@ -1,12 +1,14 @@
 import { StarTopology, AtmosphereType, StarType } from '../models/Star'
 
 export default function extractPopupContent (htmlAsString: string) {
-  const detailsElement = document.createElement('section')
-  const descriptionElement = document.createElement('section')
+  const detailsElement = document.createElement('template')
+  const descriptionElement = document.createElement('template')
 
-  const [details, description] = htmlAsString.split('</div>')
+  const [details, description] = htmlAsString
+    .replace('<div>', '')
+    .split('</div>')
 
-  detailsElement.innerHTML = `${details}`.replace('<div>', '')
+  detailsElement.innerHTML = details
   descriptionElement.innerHTML = description
 
   const domElementsRemover = (el: HTMLElement) => {
@@ -16,6 +18,22 @@ export default function extractPopupContent (htmlAsString: string) {
 
   domElementsRemover(detailsElement)
   domElementsRemover(descriptionElement)
+
+  const contentImages = [
+    ...detailsElement.querySelectorAll('img'),
+    ...descriptionElement.querySelectorAll('img')
+  ].map(({ src }) => new URL(src).pathname.split('/').pop())
+
+  const isCanon = contentImages.includes('t-canon2.png')
+  const isLegends = contentImages.includes('t-legend2.png') || contentImages.includes('t-legends2.png')
+  let [thumbnail] = contentImages
+    .filter(src => !['t-canon2.png', 't-legend2.png', 't-legends2.png'].includes(src))
+
+  thumbnail &&= thumbnail.match(/(?<=Sm).+(?=\.png)/)[0]
+
+  if (thumbnail === 'NoImage') {
+    thumbnail = undefined
+  }
 
   const textCleaner = (text: string) => {
     return text
@@ -37,7 +55,10 @@ export default function extractPopupContent (htmlAsString: string) {
     atmosphere: atmosphereTypeValidator(normalizeAtmosphere(atmosphere)),
     moons: normalizeBasicString(moons),
     stars: normalizeBasicString(stars),
-    description: cleanedDescriptionText
+    description: cleanedDescriptionText,
+    isCanon,
+    isLegends,
+    thumbnail
   }
 }
 
@@ -48,7 +69,7 @@ function normalizeDiameter (diameter: string | undefined = 'unknown'): number | 
   }
 
   if (!/km/i.test(diameter)) {
-    if (!isNaN(diameter.replace(',',''))) {
+    if (!isNaN(diameter.replace(',', ''))) {
       return Number(diameter)
     }
 
@@ -56,12 +77,12 @@ function normalizeDiameter (diameter: string | undefined = 'unknown'): number | 
   }
 
   diameter = diameter.replace(' km', '')
-  
-  
+
+
   const diameterAsNumber = Number(
     diameter
       .match(/^[\D\s]*([\d,]+)/)[0] // Matches the 1st number in the str (ignoring non-digits at start and stopping at end of first number).
-      .replace(',','') // Converts US notation to normal number.
+      .replace(',', '') // Converts US notation to normal number.
   )
 
   return diameterAsNumber
@@ -83,7 +104,7 @@ function normalizeBasicString (str: string = 'unknown'): string | undefined {
   return str
 }
 
-function atmosphereTypeValidator(value: any): value is AtmosphereType {
+function atmosphereTypeValidator (value: any): value is AtmosphereType {
   if (value && !Object.values(AtmosphereType).includes(value)) {
     console.error(`The following atmosphere type is not valid : ${value}`)
   }
@@ -91,7 +112,7 @@ function atmosphereTypeValidator(value: any): value is AtmosphereType {
   return value
 }
 
-function starTypeValidator(value: any): value is StarType {
+function starTypeValidator (value: any): value is StarType {
   if (value && !Object.values(StarType).includes(value)) {
     console.error(`The following star type is not valid : ${value}`)
   }

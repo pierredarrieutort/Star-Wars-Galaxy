@@ -1,4 +1,4 @@
-import geojson from './data/raw_geojson'
+import geojson from './data/raw_geojson_from_leaflet'
 import extractPopupContent from './helpers/extractPopupContent'
 
 // Get only points at this time

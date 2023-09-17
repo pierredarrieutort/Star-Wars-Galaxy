@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
-import cleanedGeoJSON from '../../data-preparation/index.ts'
+
+// import preCleanedData from '../../data-preparation/index.ts'
+import preCleanedData from '../../data-preparation/data/preCleanedData.ts'
 
 export default class Planets {
   constructor () {
@@ -27,8 +29,7 @@ export default class Planets {
     this.sphereGeometry = new THREE.SphereGeometry()
 
     this.setMaterials()
-
-    this.starGroups = cleanedGeoJSON.map(starData => this.createStar(starData))
+    this.starGroups = preCleanedData.map(starData => this.createStar(starData))
   }
 
   createStar (starData) {
