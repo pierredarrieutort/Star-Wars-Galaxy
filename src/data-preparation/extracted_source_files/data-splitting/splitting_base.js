@@ -3,29 +3,12 @@
 import L from 'leaflet'
 import './helpers/vars_handler.js'
 
-new Date('2023-09-04T22:47:27Z')
-
 //Creating the Map
 L.CRS.MySimple = L.extend({}, L.CRS.Simple, {
   transformation: new L.Transformation(0, 2000, -1 / 75, 134)
 });
 
 L.CRS.pr = L.extend({}, L.CRS.Simple, {
-  projection: L.Projection.LonLat, //Equirectangular or Plate Carree projection (directly maps X as longitude, Y as latitude)
-  //didn't work -- bounds: L.bounds([0,0], [34500, 34500])
-
-  transformation: new L.Transformation(1 / 128, 0, 1 / 128, 0),
-
-  scale: function (zoom) {
-    return Math.pow(1, zoom);
-
-    //var bounds = [[0,0], [23,23]]; //No effect?
-  },
-
-  zoom: function (scale) {
-    return Math.log(scale) / Math.LN2;
-  },
-
   distance: function (latlng1, latlng2) {
     var dx = latlng2.lng - latlng1.lng,
       dy = latlng2.lat - latlng1.lat;
@@ -34,27 +17,6 @@ L.CRS.pr = L.extend({}, L.CRS.Simple, {
   },
   infinite: true
 });
-
-// Adds tiles to map, Sets zoom limits, Sets where map view starts out centered
-var map = L.map('map', { crs: L.CRS.Simple }).setView([-121.75, 124.625], 0);
-//var map = L.map('map', {crs: L.CRS.Simple}).setView([-108.063, 147.797], 6);
-L.tileLayer('/map/{z}/{x}/{y}.png', {
-  continuousWorld: false,
-  //maxBounds: bounds
-  noWrap: true,
-  minZoom: 3,
-  maxZoom: 11,
-}).addTo(map);
-
-
-// This made all the markers disappear >>    map.fitBounds(bounds);
-
-L.control.scale().addTo(map);
-
-//Draggable Coordinate Finder Marker
-var marker = L.marker([-108.063, 147.797], {
-  draggable: true,
-}).addTo(map);
 
 import {
   invisible1,
@@ -94,12 +56,6 @@ import {
 
 // Tokmia, Quesh, Pybus, -- Kokash, Botor -- Nar Kaaga, Allyuen?
 
-// specify popup options 
-var customOptions =
-{
-  'maxWidth': '500',
-  'className': 'custom'
-}
 
 //FeatureGroups for Zoom Levels
 var zoom04 = new L.FeatureGroup();
@@ -111,139 +67,10 @@ var zoom09 = new L.FeatureGroup();
 var zoom10 = new L.FeatureGroup();
 var zoom11 = new L.FeatureGroup();
 
-//=== COORDINATE MARKERS ===== Y COORD / X COORD ======================================================================================================= X / Y
-const LetterAtop = L.marker([-52.00, 56.50], { icon: invisible1 }).bindTooltip("A", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterBtop = L.marker([-52.00, 63.00], { icon: invisible1 }).bindTooltip("B", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterCtop = L.marker([-52.00, 69.50], { icon: invisible1 }).bindTooltip("C", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterDtop = L.marker([-52.00, 76.00], { icon: invisible1 }).bindTooltip("D", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterEtop = L.marker([-52.00, 82.50], { icon: invisible1 }).bindTooltip("E", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterFtop = L.marker([-52.00, 89.00], { icon: invisible1 }).bindTooltip("F", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterGtop = L.marker([-52.00, 95.50], { icon: invisible1 }).bindTooltip("G", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterHtop = L.marker([-52.00, 102.00], { icon: invisible1 }).bindTooltip("H", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterItop = L.marker([-52.00, 108.50], { icon: invisible1 }).bindTooltip("I", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterJtop = L.marker([-52.00, 115.00], { icon: invisible1 }).bindTooltip("J", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterKtop = L.marker([-52.00, 121.50], { icon: invisible1 }).bindTooltip("K", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterLtop = L.marker([-52.00, 128.00], { icon: invisible1 }).bindTooltip("L", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterMtop = L.marker([-52.00, 134.50], { icon: invisible1 }).bindTooltip("M", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterNtop = L.marker([-52.00, 141.00], { icon: invisible1 }).bindTooltip("N", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterOtop = L.marker([-52.00, 147.50], { icon: invisible1 }).bindTooltip("O", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterPtop = L.marker([-52.00, 154.00], { icon: invisible1 }).bindTooltip("P", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterQtop = L.marker([-52.00, 160.50], { icon: invisible1 }).bindTooltip("Q", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterRtop = L.marker([-52.00, 167.00], { icon: invisible1 }).bindTooltip("R", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterStop = L.marker([-52.00, 173.50], { icon: invisible1 }).bindTooltip("S", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterTtop = L.marker([-52.00, 180.00], { icon: invisible1 }).bindTooltip("T", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterUtop = L.marker([-52.00, 186.50], { icon: invisible1 }).bindTooltip("U", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterVtop = L.marker([-52.00, 193.00], { icon: invisible1 }).bindTooltip("V", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterWtop = L.marker([-52.00, 199.50], { icon: invisible1 }).bindTooltip("W", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
 
-const LetterAbot = L.marker([-204.00, 56.50], { icon: invisible1 }).bindTooltip("A", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterBbot = L.marker([-204.00, 63.00], { icon: invisible1 }).bindTooltip("B", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterCbot = L.marker([-204.00, 69.50], { icon: invisible1 }).bindTooltip("C", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterDbot = L.marker([-204.00, 76.00], { icon: invisible1 }).bindTooltip("D", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterEbot = L.marker([-204.00, 82.50], { icon: invisible1 }).bindTooltip("E", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterFbot = L.marker([-204.00, 89.00], { icon: invisible1 }).bindTooltip("F", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterGbot = L.marker([-204.00, 95.50], { icon: invisible1 }).bindTooltip("G", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterHbot = L.marker([-204.00, 102.00], { icon: invisible1 }).bindTooltip("H", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterIbot = L.marker([-204.00, 108.50], { icon: invisible1 }).bindTooltip("I", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterJbot = L.marker([-204.00, 115.00], { icon: invisible1 }).bindTooltip("J", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterKbot = L.marker([-204.00, 121.50], { icon: invisible1 }).bindTooltip("K", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterLbot = L.marker([-204.00, 128.00], { icon: invisible1 }).bindTooltip("L", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterMbot = L.marker([-204.00, 134.50], { icon: invisible1 }).bindTooltip("M", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterNbot = L.marker([-204.00, 141.00], { icon: invisible1 }).bindTooltip("N", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterObot = L.marker([-204.00, 147.50], { icon: invisible1 }).bindTooltip("O", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterPbot = L.marker([-204.00, 154.00], { icon: invisible1 }).bindTooltip("P", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterQbot = L.marker([-204.00, 160.50], { icon: invisible1 }).bindTooltip("Q", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterRbot = L.marker([-204.00, 167.00], { icon: invisible1 }).bindTooltip("R", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterSbot = L.marker([-204.00, 173.50], { icon: invisible1 }).bindTooltip("S", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterTbot = L.marker([-204.00, 180.00], { icon: invisible1 }).bindTooltip("T", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterUbot = L.marker([-204.00, 186.50], { icon: invisible1 }).bindTooltip("U", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterVbot = L.marker([-204.00, 193.00], { icon: invisible1 }).bindTooltip("V", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const LetterWbot = L.marker([-204.00, 199.50], { icon: invisible1 }).bindTooltip("W", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
 
-const Number01left = L.marker([-56.20, 52.00], { icon: invisible1 }).bindTooltip("01", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number02left = L.marker([-62.70, 52.00], { icon: invisible1 }).bindTooltip("02", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number03left = L.marker([-69.20, 52.00], { icon: invisible1 }).bindTooltip("03", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number04left = L.marker([-75.70, 52.00], { icon: invisible1 }).bindTooltip("04", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number05left = L.marker([-82.20, 52.00], { icon: invisible1 }).bindTooltip("05", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number06left = L.marker([-88.70, 52.00], { icon: invisible1 }).bindTooltip("06", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number07left = L.marker([-95.20, 52.00], { icon: invisible1 }).bindTooltip("07", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number08left = L.marker([-101.70, 52.00], { icon: invisible1 }).bindTooltip("08", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number09left = L.marker([-108.20, 52.00], { icon: invisible1 }).bindTooltip("09", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number10left = L.marker([-114.70, 52.00], { icon: invisible1 }).bindTooltip("10", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number11left = L.marker([-121.20, 52.00], { icon: invisible1 }).bindTooltip("11", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number12left = L.marker([-127.70, 52.00], { icon: invisible1 }).bindTooltip("12", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number13left = L.marker([-134.20, 52.00], { icon: invisible1 }).bindTooltip("13", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number14left = L.marker([-140.70, 52.00], { icon: invisible1 }).bindTooltip("14", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number15left = L.marker([-147.20, 52.00], { icon: invisible1 }).bindTooltip("15", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number16left = L.marker([-153.70, 52.00], { icon: invisible1 }).bindTooltip("16", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number17left = L.marker([-160.20, 52.00], { icon: invisible1 }).bindTooltip("17", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number18left = L.marker([-166.70, 52.00], { icon: invisible1 }).bindTooltip("18", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number19left = L.marker([-173.20, 52.00], { icon: invisible1 }).bindTooltip("19", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number20left = L.marker([-179.70, 52.00], { icon: invisible1 }).bindTooltip("20", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number21left = L.marker([-186.20, 52.00], { icon: invisible1 }).bindTooltip("21", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number22left = L.marker([-192.70, 52.00], { icon: invisible1 }).bindTooltip("22", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number23left = L.marker([-199.20, 52.00], { icon: invisible1 }).bindTooltip("23", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
 
-const Number01right = L.marker([-56.20, 204.00], { icon: invisible1 }).bindTooltip("01", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number02right = L.marker([-62.70, 204.00], { icon: invisible1 }).bindTooltip("02", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number03right = L.marker([-69.20, 204.00], { icon: invisible1 }).bindTooltip("03", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number04right = L.marker([-75.70, 204.00], { icon: invisible1 }).bindTooltip("04", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number05right = L.marker([-82.20, 204.00], { icon: invisible1 }).bindTooltip("05", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number06right = L.marker([-88.70, 204.00], { icon: invisible1 }).bindTooltip("06", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number07right = L.marker([-95.20, 204.00], { icon: invisible1 }).bindTooltip("07", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number08right = L.marker([-101.70, 204.00], { icon: invisible1 }).bindTooltip("08", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number09right = L.marker([-108.20, 204.00], { icon: invisible1 }).bindTooltip("09", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number10right = L.marker([-114.70, 204.00], { icon: invisible1 }).bindTooltip("10", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number11right = L.marker([-121.20, 204.00], { icon: invisible1 }).bindTooltip("11", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number12right = L.marker([-127.70, 204.00], { icon: invisible1 }).bindTooltip("12", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number13right = L.marker([-134.20, 204.00], { icon: invisible1 }).bindTooltip("13", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number14right = L.marker([-140.70, 204.00], { icon: invisible1 }).bindTooltip("14", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number15right = L.marker([-147.20, 204.00], { icon: invisible1 }).bindTooltip("15", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number16right = L.marker([-153.70, 204.00], { icon: invisible1 }).bindTooltip("16", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number17right = L.marker([-160.20, 204.00], { icon: invisible1 }).bindTooltip("17", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number18right = L.marker([-166.70, 204.00], { icon: invisible1 }).bindTooltip("18", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number19right = L.marker([-173.20, 204.00], { icon: invisible1 }).bindTooltip("19", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number20right = L.marker([-179.70, 204.00], { icon: invisible1 }).bindTooltip("20", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number21right = L.marker([-186.20, 204.00], { icon: invisible1 }).bindTooltip("21", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number22right = L.marker([-192.70, 204.00], { icon: invisible1 }).bindTooltip("22", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-const Number23right = L.marker([-199.20, 204.00], { icon: invisible1 }).bindTooltip("23", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-crd' }).addTo(map);
-//=== SECTORS ================ Y COORD / X COORD ======================================================================================================= X / Y
-const STwilightVoid = L.marker([-92.84, 73.91], { icon: invisible1 }).bindTooltip("TWILIGHTVOID", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(STwilightVoid);
-const SStratosDistr = L.marker([-92.37, 80.34], { icon: invisible1 }).bindTooltip("STRATOS DISTRIBUTION", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SStratosDistr);
-const SBlackHole = L.marker([-100.16, 93.99], { icon: invisible1 }).bindTooltip("BLACK HOLE SECTOR", { permanent: true, direction: 'center', offset: [0, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SBlackHole);
-const STheWastes = L.marker([-64.35, 118.84], { icon: invisible1 }).bindTooltip("THE WASTES", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(STheWastes);
-const SGreeEnclave = L.marker([-64.70, 124.59], { icon: invisible1 }).bindTooltip("GREE ENCLAVE", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SGreeEnclave);
-const SVeragi = L.marker([-63.16, 125.84], { icon: invisible1 }).bindTooltip("VERAGI", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SVeragi);
-const SDalonbian = L.marker([-62.94, 130.34], { icon: invisible1 }).bindTooltip("DALONBIAN", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SDalonbian);
-const SSpinward = L.marker([-62.23, 136.67], { icon: invisible1 }).bindTooltip("SPINWARD", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SSpinward);
-const STransVulta = L.marker([-96.23, 144.75], { icon: invisible1 }).bindTooltip("TRANS-VULTA", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(STransVulta);
-const SOjoster = L.marker([-94.42, 143.89], { icon: invisible1 }).bindTooltip("OJOSTER", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SOjoster);
-const SMeerian = L.marker([-91.27, 145.88], { icon: invisible1 }).bindTooltip("MEERIAN", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SMeerian);
-const SMandalore = L.marker([-93.37, 146.27], { icon: invisible1 }).bindTooltip("MANDALORE", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SMandalore);
-const SBelsmuth = L.marker([-91.04, 149.24], { icon: invisible1 }).bindTooltip("BELSMUTH", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SBelsmuth);
-const SThusa = L.marker([-96.54, 149.40], { icon: invisible1 }).bindTooltip("THUSA", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SThusa);
-const SDemetras = L.marker([-93.76, 152.93], { icon: invisible1 }).bindTooltip("DEMETRAS", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SDemetras);
-const SGordianReach = L.marker([-84.30, 157.33], { icon: invisible1 }).bindTooltip("GORDIAN REACH", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SGordianReach);
-const SBelderone = L.marker([-87.89, 165.33], { icon: invisible1 }).bindTooltip("BELDERONE", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SBelderone);
-const SSpadja = L.marker([-85.80, 166.12], { icon: invisible1 }).bindTooltip("SPADJA", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SSpadja);
-const SBortele = L.marker([-101.91, 169.02], { icon: invisible1 }).bindTooltip("BORTELE", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SBortele);
-const SThanium = L.marker([-85.98, 170.17], { icon: invisible1 }).bindTooltip("THANIUM", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SThanium);
-const SSuolriep = L.marker([-101.34, 172.45], { icon: invisible1 }).bindTooltip("SUOLRIEP", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SSuolriep);
-const SPhelleem = L.marker([-96.58, 172.58], { icon: invisible1 }).bindTooltip("PHELLEEM", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SPhelleem);
-const STharin = L.marker([-102.94, 176.81], { icon: invisible1 }).bindTooltip("THARIN", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(STharin);
-const SAshWorlds = L.marker([-93.47, 177.94], { icon: invisible1 }).bindTooltip("ASH WORLDS", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SAshWorlds);
-const SCadma = L.marker([-101.98, 179.14], { icon: invisible1 }).bindTooltip("CADMA", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SCadma);
-const SJubilar = L.marker([-97.28, 180.58], { icon: invisible1 }).bindTooltip("JUBILAR", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SJubilar);
-const SShadola = L.marker([-99.63, 183.22], { icon: invisible1 }).bindTooltip("SHADOLA", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SShadola);
-const SCentrality = L.marker([-102.41, 183.55], { icon: invisible1 }).bindTooltip("CENTRALITY", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SCentrality);
-const SDominus = L.marker([-96.20, 185.67], { icon: invisible1 }).bindTooltip("DOMINUS", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sec' }); zoom06.addLayer(SDominus);
 
-const SSColunda = L.marker([-98.84, 171.48], { icon: invisible1 }).bindTooltip("COLUNDA", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sub' }); zoom07.addLayer(SSColunda);
-const SSIotranExpan = L.marker([-104.94, 172.77], { icon: invisible1 }).bindTooltip("IOTRAN<br>EXPANSE", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sub' }); zoom07.addLayer(SSIotranExpan);
-const SSKarstaxon = L.marker([-104.89, 173.80], { icon: invisible1 }).bindTooltip("KARSTAXON<br>REGIONS", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sub' }); zoom07.addLayer(SSKarstaxon);
-const SSAnsuroer = L.marker([-103.56, 173.80], { icon: invisible1 }).bindTooltip("ANSUROER", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sub' }); zoom07.addLayer(SSAnsuroer);
-const SSPeriphery = L.marker([-104.82, 176.01], { icon: invisible1 }).bindTooltip("THE PERIPHERY", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sub' }); zoom07.addLayer(SSPeriphery);
-const SSLothal = L.marker([-93.91, 185.02], { icon: invisible1 }).bindTooltip("LOTHAL", { permanent: true, direction: 'center', offset: [-2, 0], className: 'leaflet-tooltip-sub' }); zoom07.addLayer(SSLothal);
 
 
 

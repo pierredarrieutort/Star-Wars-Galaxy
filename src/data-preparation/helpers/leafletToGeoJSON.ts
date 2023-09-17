@@ -1,41 +1,43 @@
-export default function exportToGeoJSON() {
-  const features = [];
-
-  // Parcourez les calques de votre carte
-  map.eachLayer(layer => {
-    // Vérifiez si la couche est une couche GeoJSON
-    if (layer.toGeoJSON) {
-      const geojson = layer.toGeoJSON();
-
-      // Si la couche a un popup, ajoutez son contenu aux propriétés de la fonctionnalité GeoJSON
-      if (layer.getPopup && layer.getPopup()) {
-        geojson.properties.popupContent = layer.getPopup().getContent();
-      }
-
-      // Si la couche a un tooltip, ajoutez son contenu aux propriétés de la fonctionnalité GeoJSON
-      if (layer.getTooltip && layer.getTooltip()) {
-        geojson.properties.tooltipContent = layer.getTooltip().getContent();
-      }
-
-      if (geojson.features) {
-        geojson.features.forEach(feature => {
-          features.push(feature);
-        });
-      } else {
-        features.push(geojson);
-      }
-    }
-  });
-
-  // Créez un objet GeoJSON avec toutes les fonctionnalités collectées
+function exportToGeoJSON () {
   const geojsonObject = {
     type: 'FeatureCollection',
-    features: features,
-  };
+    features: []
+  }
 
-  // Convertissez l'objet GeoJSON en chaîne JSON
-  const geojsonString = JSON.stringify(geojsonObject, null, 2);
+  // Add to map non-linked FeatureGroups declared in Window.
+  for (const variableName in window) {
+    if (variableName !== 'map' && window[variableName]?._layers) {
+      window.map.addLayer(window[variableName])
+    }
+  }
 
-  // Affichez la chaîne GeoJSON dans la console (vous pouvez également la télécharger ou l'utiliser comme vous le souhaitez)
-  console.log(geojsonString);
+  function handleFeature (layer, geojson) {
+    if (layer.toGeoJSON) {
+      geojson ||= layer.toGeoJSON()
+
+      if (layer.getPopup && layer.getPopup()) {
+        geojson.properties.popupContent = layer.getPopup().getContent()
+      }
+
+      if (layer.getTooltip && layer.getTooltip()) {
+        geojson.properties.tooltipContent = layer.getTooltip().getContent()
+      }
+
+      geojsonObject.features.push(geojson)
+    }
+  }
+
+  window.map.eachLayer(layer => {
+    if (layer.toGeoJSON) {
+      const geojson = layer.toGeoJSON()
+
+      if (geojson.type === 'FeatureCollection') {
+        geojson.features.forEach(handleFeature)
+      } else {
+        handleFeature(layer, geojson)
+      }
+    }
+  })
+
+  console.info(JSON.stringify(geojsonObject))
 }
