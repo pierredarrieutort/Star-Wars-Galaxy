@@ -29,6 +29,8 @@ export default class Planets {
     this.sphereGeometry = new THREE.SphereGeometry()
 
     this.setMaterials()
+
+    preCleanedData.length = 10
     this.starGroups = preCleanedData.map(starData => this.createStar(starData))
   }
 
@@ -70,7 +72,9 @@ export default class Planets {
   }
 
   setMaterials () {
-    this.sphereMaterial = new THREE.MeshLambertMaterial()
+    this.sphereMaterial = new THREE.MeshBasicMaterial({
+      map: this.resources.items.AldeeranPlanetTexture
+    })
     this.lineLoopMaterial = new THREE.LineBasicMaterial({
       color: 0x0062FF,
       transparent: true,

@@ -27,4 +27,9 @@ export default [
     //     type: 'gltfModel',
     //     path: 'models/Fox/glTF/Fox.gltf'
     // }
+    {
+        name: 'AldeeranPlanetTexture',
+        type: 'texture',
+        path: 'images/planets/Alderaan.png'
+    }
 ]
