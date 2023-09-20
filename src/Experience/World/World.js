@@ -13,7 +13,7 @@ export default class World {
             this.setupWorld()
         } else {
             // Wait for resources
-            this.resources.on('ready', this.setupWorld)
+            this.resources.on('ready', () => this.setupWorld())
         }
     }
 
