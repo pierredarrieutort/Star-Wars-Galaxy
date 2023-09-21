@@ -30,7 +30,7 @@ export default class Planets {
 
     this.setMaterials()
 
-    preCleanedData.length = 10
+    // preCleanedData.length = 1
     this.starGroups = preCleanedData.map(starData => this.createStar(starData))
   }
 
@@ -73,7 +73,7 @@ export default class Planets {
 
   setMaterials () {
     this.sphereMaterial = new THREE.MeshBasicMaterial({
-      map: this.resources.items.AldeeranPlanetTexture
+      // map: this.resources.items.AldeeranPlanetTexture
     })
     this.lineLoopMaterial = new THREE.LineBasicMaterial({
       color: 0x0062FF,
@@ -87,12 +87,15 @@ export default class Planets {
       lineLoopDebugFolder
         .add(this.lineLoopMaterial, 'opacity')
         .min(0)
-        .max(1)
-        .step(.1)
+        .max(.25)
+        .step(.01)
         .name('LineLoop opacity')
 
       lineLoopDebugFolder
         .addColor(this.lineLoopMaterial, 'color')
+
+      lineLoopDebugFolder
+        .add(this, 'destroyStarsLineLoops')
     }
   }
 
@@ -115,7 +118,7 @@ export default class Planets {
   update () {
     this.starGroups.forEach(parentGroup => {
       const { children, userData } = parentGroup
-      const [lineLoop, subGroup] = children
+      const subGroup = children.find(child => child instanceof THREE.Group)
       const [star] = subGroup.children
       const { offsetAngle, radius } = userData.geometry
 
@@ -126,6 +129,16 @@ export default class Planets {
       // Rotation continue de chaque sphère autour du centre
       subGroup.position.x = Math.cos(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
       subGroup.position.z = Math.sin(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
+    })
+  }
+
+  destroyStarsLineLoops () {
+    this.starGroups.forEach(parentGroup => {
+      const lineLoop = parentGroup.children.find(child => child instanceof THREE.LineLoop)
+
+      lineLoop.removeFromParent()
+      lineLoop.geometry.dispose()
+      lineLoop.material.dispose()
     })
   }
 }

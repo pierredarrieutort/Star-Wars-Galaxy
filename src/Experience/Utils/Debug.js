@@ -23,7 +23,32 @@ export default class Debug {
 
             this.showStatsPanel()
             this.showAxesHelper()
+            this.showElementsCountDebugUi()
+
+            this.generalSettings
+                .add(this, 'recursiveSceneCleaning')
+                .name('Clen-up scene residuals')
         }
+    }
+
+    recursiveSceneCleaning () {
+        // TODO - If parentGroup of suppression has no child, delete it from other parent recursively.
+    }
+
+    showElementsCountDebugUi () {
+        this.elementsCount = 0
+
+        this.elementsCountViewer = this.generalSettings
+            .add(this, 'elementsCount')
+            .name('Scene elements')
+
+        setInterval(() => this.updateElementsCount(), 10000)
+    }
+
+    updateElementsCount () {
+        this.elementsCount = 0
+        this.scene.traverse(() => this.elementsCount++)
+        this.elementsCountViewer.setValue(this.elementsCount)
     }
 
     showStatsPanel () {

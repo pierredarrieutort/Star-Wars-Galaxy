@@ -15,3 +15,9 @@ THEN :
 - think a solution for routes (using base coordinates, but our planet get coord edited).
 - Check if routes, passes, etc... have name in extract, if not think to a solution. (hard link from extract html).
 - split ./splitting_base.js to better view data (possibly useless).
+
+
+OPTIMIZATION :
+- If parentGroup of suppression has no child, delete it from other parent recursively.
+- Try to deal with parentGroup and subGroup especially when no lineLoop anymore (possibly when a group is only child of a group, try to merge them).
+- When textures will be applied, don't forget to delete them from scene.
