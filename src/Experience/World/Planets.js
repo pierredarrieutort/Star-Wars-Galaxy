@@ -60,7 +60,7 @@ export default class Planets {
     subGroup.add(sphere)
 
     parentGroup
-      .add(lineLoop, subGroup)
+      .add(subGroup, lineLoop)
       .rotateX(-Math.PI / ((Math.random() / 10) - 1) + Math.PI / 8)
       .rotateY(Math.PI / ((Math.random() / 10) - 1))
       .rotateZ(Math.PI / ((Math.random() / 10) - 1))
@@ -116,29 +116,36 @@ export default class Planets {
   }
 
   update () {
-    this.starGroups.forEach(parentGroup => {
-      const { children, userData } = parentGroup
-      const subGroup = children.find(child => child instanceof THREE.Group)
-      const [star] = subGroup.children
+    this.starGroups.forEach(({ children, userData }) => {
+      const subGroup = children[0]
+      const star = subGroup.children.find(child => child instanceof THREE.Mesh)
+
       const { offsetAngle, radius } = userData.geometry
 
+      const cineticSpeed = this.time.elapsed * this.rotationSpeed
+
       // Rotation continue de la sphère sur elle-même
-      star.rotation.x = this.time.elapsed * this.rotationSpeed
-      star.rotation.y = this.time.elapsed * this.rotationSpeed
+      star.rotation.x = cineticSpeed
+      star.rotation.y = cineticSpeed
 
       // Rotation continue de chaque sphère autour du centre
-      subGroup.position.x = Math.cos(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
-      subGroup.position.z = Math.sin(this.time.elapsed * this.rotationSpeed + offsetAngle) * radius
+      subGroup.position.x = Math.cos(cineticSpeed + offsetAngle) * radius
+      subGroup.position.z = Math.sin(cineticSpeed + offsetAngle) * radius
     })
   }
 
   destroyStarsLineLoops () {
-    this.starGroups.forEach(parentGroup => {
+    for (const parentGroup of this.starGroups) {
       const lineLoop = parentGroup.children.find(child => child instanceof THREE.LineLoop)
 
-      lineLoop.removeFromParent()
-      lineLoop.geometry.dispose()
-      lineLoop.material.dispose()
-    })
+      if (lineLoop) {
+        lineLoop.removeFromParent()
+        lineLoop.geometry.dispose()
+        lineLoop.material.dispose()
+      } else {
+        console.info('No more lineLoop to remove.')
+        break
+      }
+    }
   }
 }

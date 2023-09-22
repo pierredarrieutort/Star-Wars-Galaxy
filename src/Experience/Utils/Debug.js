@@ -23,10 +23,6 @@ export default class Debug {
             this.showElementsCountDebugUi()
 
             this.generalSettings
-                .add(this, 'recursiveSceneCleaning')
-                .name('Clean-up scene residuals')
-
-            this.generalSettings
                 .add(this, 'logRendererInfo')
                 .name('Log instance infos')
         }
@@ -34,13 +30,6 @@ export default class Debug {
 
     logRendererInfo () {
         console.info(this.experience.renderer.instance.info)
-    }
-
-    recursiveSceneCleaning () {
-        // TODO - If parentGroup of suppression has no child, delete it from other parent recursively.
-        this.scene.traverse(child => {
-
-        })
     }
 
     showElementsCountDebugUi () {
