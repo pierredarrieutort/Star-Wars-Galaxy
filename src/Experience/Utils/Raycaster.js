@@ -61,9 +61,10 @@ export default class Raycaster extends EventEmitter {
         clickableElement.object.parent.parent.userData.properties.name,
         clickableElement.object.parent.parent.userData
       )
-    } else if (this.camera.followingMesh) {
-      this.camera.resetCameraToWorldCenter()
     }
+    // else if (this.camera.followingMesh) {
+    //   this.camera.resetCameraToWorldCenter()
+    // }
   }
 
 

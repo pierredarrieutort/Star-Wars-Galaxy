@@ -27,8 +27,17 @@ export default class Debug {
 
             this.generalSettings
                 .add(this, 'recursiveSceneCleaning')
-                .name('Clen-up scene residuals')
+                .name('Clean-up scene residuals')
+            
+            this.generalSettings
+                .add(this, 'logRendererInfo')
+                .name('Log instance infos')
+            
         }
+    }
+
+    logRendererInfo () {
+        console.info(this.experience.renderer.instance.info)
     }
 
     recursiveSceneCleaning () {
