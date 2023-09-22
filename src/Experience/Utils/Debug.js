@@ -14,10 +14,7 @@ export default class Debug {
             this.ui = new dat.GUI()
 
             this.AxesHelper = null
-
-            this.options = {
-                showAxesHelper: true
-            }
+            this.isDisplayedAxesHelper = true
 
             this.generalSettings = this.ui.addFolder('General settings')
 
@@ -28,11 +25,10 @@ export default class Debug {
             this.generalSettings
                 .add(this, 'recursiveSceneCleaning')
                 .name('Clean-up scene residuals')
-            
+
             this.generalSettings
                 .add(this, 'logRendererInfo')
                 .name('Log instance infos')
-            
         }
     }
 
@@ -42,6 +38,9 @@ export default class Debug {
 
     recursiveSceneCleaning () {
         // TODO - If parentGroup of suppression has no child, delete it from other parent recursively.
+        this.scene.traverse(child => {
+
+        })
     }
 
     showElementsCountDebugUi () {
@@ -77,12 +76,12 @@ export default class Debug {
             this.axesHelper = null
         }
 
-        if (this.options.showAxesHelper) {
+        if (this.isDisplayedAxesHelper) {
             setAxesHelper()
         }
 
         this.generalSettings
-            .add(this.options, 'showAxesHelper')
+            .add(this, 'isDisplayedAxesHelper')
             .name('Show Axes Helper')
             .onChange(bool => bool ? setAxesHelper() : destroyAxesHelper())
     }
