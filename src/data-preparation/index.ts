@@ -10,8 +10,9 @@ const points = geojson.features
   )
 
 points.forEach(point => {
-  // This property is now useless, so remove it from object.
-  delete point.geometry.type
+  // These properties are now useless, so remove them from object.
+  delete point.type // type: Feature
+  delete point.geometry.type // type: Geometry
 
   // Clean star properties
   point.properties.popupContent &&= extractPopupContent(point.properties.popupContent)
