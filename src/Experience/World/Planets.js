@@ -26,7 +26,7 @@ export default class Planets {
         .max(1)
         .step(.1)
     }
-    this.sphereGeometry = new THREE.SphereGeometry()
+    this.sphereGeometry = new THREE.SphereGeometry(1, 16, 16)
 
     this.setMaterials()
 
@@ -74,7 +74,7 @@ export default class Planets {
   }
 
   setMaterials () {
-    this.sphereMaterial = new THREE.MeshBasicMaterial({
+    this.sphereMaterial = new THREE.MeshLambertMaterial({
       // map: this.resources.items.AldeeranPlanetTexture
     })
     this.lineLoopMaterial = new THREE.LineBasicMaterial({

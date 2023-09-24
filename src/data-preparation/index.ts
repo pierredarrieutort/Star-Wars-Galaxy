@@ -14,6 +14,14 @@ points.forEach(point => {
   delete point.type // type: Feature
   delete point.geometry.type // type: Geometry
 
+
+  /**
+   ** Difference with tooltipContent & popupContent in Leaflet ?
+   * Tooltip is always visible.
+   * Popup is visible when clicked.
+   */
+
+
   // Clean star properties
   point.properties.popupContent &&= extractPopupContent(point.properties.popupContent)
 

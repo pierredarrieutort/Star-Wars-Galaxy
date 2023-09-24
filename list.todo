@@ -1,9 +1,3 @@
-DATA EXTRACTION :
-- Deal with tooltipContent et popupContent
-  -- tooltip seems to be the label always visible, the popup is visible when clicked.
-  -- possibly just rename them explicitly.
-
-
 THEN :
 - Understand all icons types and document them (or rename them to be explicit).
 - think a solution for routes (using base coordinates, but our planet get coord edited).
