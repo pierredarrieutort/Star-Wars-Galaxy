@@ -9,9 +9,6 @@ const points = geojson.features
       !['LatLng Marker', '<b>Corellia</b>'].includes(obj.properties.popupContent)
   )
 
-let sumX = 0
-let sumZ = 0
-
 points.forEach(point => {
   delete point.type
 
@@ -30,17 +27,9 @@ points.forEach(point => {
     z: -(point.geometry.coordinates[1])
   }
 
-  sumX += point.geometry.coordinates.x
-  sumZ += point.geometry.coordinates.z
-})
-
-const offsetX = -20; // Remplacez par la valeur souhaitée pour l'offset en X
-const offsetZ = -30; // Remplacez par la valeur souhaitée pour l'offset en Z
-
-// Ajouter les offsets à chaque point
-points.forEach(point => {
-  point.geometry.coordinates.x += offsetX;
-  point.geometry.coordinates.z += offsetZ;
+  // Removing original Leaflet's extracted map center offset : LatLng(-121.75, 124.625).
+  point.geometry.coordinates.x -= 124.625
+  point.geometry.coordinates.z -= 121.75
 })
 
 //? Remove results before 'A' because they're test values from extract.
@@ -51,24 +40,6 @@ points.splice(0, indexA)
 const index23 = points.findIndex(obj => obj.properties.name === 'Belkadan')
 points.splice(0, index23)
 
-
-
-
-const centerX = sumX / points.length
-const centerZ = sumZ / points.length
-
-// Étape 2 : Calculer la différence entre le centre du graphique et le centre du nuage de points
-const graphCenterX = 0
-const graphCenterZ = 0
-
-const deltaX = graphCenterX - centerX
-const deltaZ = graphCenterZ - centerZ
-
-points.forEach(point => {
-  point.geometry.coordinates.x += deltaX / 2
-  point.geometry.coordinates.z += deltaZ / 2
-})
-
-console.log(points.map(point => point))
+// console.log(points.map(point => point))
 
 export default points
