@@ -15,7 +15,7 @@ function exportToGeoJSON () {
     if (layer.toGeoJSON) {
       geojson ||= layer.toGeoJSON()
 
-      if (typeof layer.getIcon === 'function') {
+      if (layer.getIcon && layer.getIcon()) {
         const icon = layer.getIcon()
 
         if (icon) {
@@ -23,11 +23,11 @@ function exportToGeoJSON () {
         }
       }
 
-      if (typeof layer.getPopup === 'function') {
+      if (layer.getPopup && layer.getPopup()) {
         geojson.properties.popupContent = layer.getPopup().getContent()
       }
 
-      if (typeof layer.getTooltip === 'function') {
+      if (layer.getTooltip && layer.getTooltip()) {
         geojson.properties.tooltipContent = layer.getTooltip().getContent()
       }
 

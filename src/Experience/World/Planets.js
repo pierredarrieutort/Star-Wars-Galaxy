@@ -26,12 +26,12 @@ export default class Planets {
         .max(1)
         .step(.1)
     }
+
     this.sphereGeometry = new THREE.SphereGeometry(1, 16, 16)
+    this.defaultSphereMaterial = new THREE.MeshLambertMaterial()
 
     this.setMaterials()
 
-    // preCleanedData.length = 1
-    console.log(preCleanedData)
     this.starGroups = preCleanedData.map(starData => this.createStar(starData))
   }
 
@@ -74,9 +74,21 @@ export default class Planets {
   }
 
   setMaterials () {
-    this.sphereMaterial = new THREE.MeshLambertMaterial({
-      // map: this.resources.items.AldeeranPlanetTexture
-    })
+    this.customSphereMaterials = preCleanedData
+      .map(el => el.properties.thumbnail)
+      .filter(Boolean)
+      .map(thumb => {
+        if (this.resources.items[`${thumb}PlanetTexture`]) {
+          const customSphereMaterial = this.defaultSphereMaterial.clone()
+          customSphereMaterial.map = this.resources.items[`${thumb}PlanetTexture`]
+
+          return [thumb, customSphereMaterial]
+        } else {
+          console.info(`${thumb} planet texture was not found.`)
+        }
+      })
+      .filter(Boolean)
+
     this.lineLoopMaterial = new THREE.LineBasicMaterial({
       color: 0x0062FF,
       transparent: true,
@@ -111,8 +123,10 @@ export default class Planets {
       .setFromPoints(pts)
       .rotateX(Math.PI / 2)
 
+    const checkIfCustomTexture = this.customSphereMaterials.find(([thumb]) => thumb === starData.properties.thumbnail)
+
     return {
-      sphere: new THREE.Mesh(_sphereGeometry, this.sphereMaterial),
+      sphere: new THREE.Mesh(_sphereGeometry, checkIfCustomTexture?.[1] || this.defaultSphereMaterial),
       lineLoop: new THREE.LineLoop(_lineLoopGeometry, this.lineLoopMaterial)
     }
   }
