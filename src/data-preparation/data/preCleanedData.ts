@@ -1,11 +1,18 @@
 /**
- * This file contains pre-cleaned-data.
+ *? This file contains pre-cleaned-data.
+ * 
+ ** How to use ?
  * To work with a fresh Leaflet extract,
  * replace this import in the target file by the index.ts
  * of data-preparation folder.
  * 
- * How to refresh this file ?
+ ** How to refresh this file ?
  * When using the index.js file, log its export result, then copy-paste it here.
+ * 
+ ** What this file is used for ?
+ * This file is used when want to use mocked data bypassing
+ * the extract process pipeline from a raw data extract
+ * and when want to immediately view object structure.
 */
 
 export default [
