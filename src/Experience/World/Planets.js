@@ -37,8 +37,9 @@ export default class Planets {
   createStar (starData) {
     const { x, z } = starData.geometry.coordinates
 
-    //? Mocking size before using Diameter value.
-    starData.geometry.size = Math.random() * .2 + .1
+    starData.geometry.size = starData.properties.diameter
+      ? starData.properties.diameter / 10000
+      : starData.geometry.size = Math.random() * .2 + .1
 
     // Calcul de l'hypoténuse des coordonnées pour obtenir le radius depuis le centre de la scène.
     starData.geometry.radius = Math.sqrt(x ** 2 + z ** 2)
@@ -60,7 +61,7 @@ export default class Planets {
     subGroup.add(sphere)
 
     parentGroup
-      .add(subGroup/*, lineLoop*/)
+      .add(subGroup, lineLoop)
       .rotateX(-Math.PI / ((Math.random() / 10) - 1) + Math.PI / 8)
       .rotateY(Math.PI / ((Math.random() / 10) - 1))
       .rotateZ(Math.PI / ((Math.random() / 10) - 1))
