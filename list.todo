@@ -1,6 +1,5 @@
 DATA EXTRACTION :
 - link planet to his icon (not his thumbnail).
-- Get wiki link from extract.
 - Try to properly displace points by substract base centering of them (var map = L.map('map', { crs: L.CRS.Simple }).setView([-121.75, 124.625], 0);
 - Deal with tooltipContent et popupContent (tooltip seems to be the label alaways visible, the popup is visible when clicked)(possibly just rename them explicitly).
 
@@ -22,3 +21,8 @@ OPTIMIZATION :
 - If parentGroup of suppression has no child, delete it from other parent recursively.
 - Try to deal with parentGroup and subGroup especially when no lineLoop anymore (possibly when a group is only child of a group, try to merge them).
 - When textures will be applied, don't forget to delete them from scene.
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ADD SIZE TO STARS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!

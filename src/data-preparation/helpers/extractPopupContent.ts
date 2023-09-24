@@ -26,6 +26,9 @@ export default function extractPopupContent (htmlAsString: string) {
   domElementsRemover(detailsElement)
   domElementsRemover(descriptionElement)
 
+  // Get wiki link.
+  const wikiLink = detailsElement.content.querySelector('a').href
+
   // Get All the images names.
   const contentImages = [
     ...detailsElement.content.querySelectorAll('img'),
@@ -77,7 +80,8 @@ export default function extractPopupContent (htmlAsString: string) {
     description: cleanedDescriptionText,
     isCanon,
     isLegends,
-    thumbnail
+    thumbnail,
+    wikiLink
   }
 }
 

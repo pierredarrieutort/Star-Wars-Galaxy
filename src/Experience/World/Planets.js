@@ -60,7 +60,7 @@ export default class Planets {
     subGroup.add(sphere)
 
     parentGroup
-      .add(subGroup, lineLoop)
+      .add(subGroup/*, lineLoop*/)
       .rotateX(-Math.PI / ((Math.random() / 10) - 1) + Math.PI / 8)
       .rotateY(Math.PI / ((Math.random() / 10) - 1))
       .rotateZ(Math.PI / ((Math.random() / 10) - 1))

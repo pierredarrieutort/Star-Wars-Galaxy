@@ -4,14 +4,16 @@ import extractPopupContent from './helpers/extractPopupContent'
 // Get only points at this time
 const points = geojson.features
   .filter(
-    obj => obj.geometry.type === 'Point' && obj.properties.tooltipContent !== 'Look revealing label!'
+    obj => obj.geometry.type === 'Point' &&
+      obj.properties.tooltipContent !== 'Look revealing label!' &&
+      !['LatLng Marker', '<b>Corellia</b>'].includes(obj.properties.popupContent)
   )
 
 let sumX = 0
 let sumZ = 0
 
-for (const pointIndex in points) {
-  const point = points[pointIndex]
+points.forEach(point => {
+  delete point.type
 
   // Clean star properties
   point.properties.popupContent &&= extractPopupContent(point.properties.popupContent)
@@ -29,18 +31,16 @@ for (const pointIndex in points) {
 
   sumX += point.geometry.coordinates.x
   sumZ += point.geometry.coordinates.z
-
-  delete point.type
-}
+})
 
 const offsetX = -20; // Remplacez par la valeur souhaitée pour l'offset en X
 const offsetZ = -30; // Remplacez par la valeur souhaitée pour l'offset en Z
 
 // Ajouter les offsets à chaque point
 points.forEach(point => {
-    point.geometry.coordinates.x += offsetX;
-    point.geometry.coordinates.z += offsetZ;
-});
+  point.geometry.coordinates.x += offsetX;
+  point.geometry.coordinates.z += offsetZ;
+})
 
 //? Remove results before 'A' because they're test values from extract.
 const indexA = points.findIndex(obj => obj.properties.name === 'A')
@@ -64,10 +64,10 @@ const deltaX = graphCenterX - centerX
 const deltaZ = graphCenterZ - centerZ
 
 points.forEach(point => {
-    point.geometry.coordinates.x += deltaX / 2
-    point.geometry.coordinates.z += deltaZ / 2
+  point.geometry.coordinates.x += deltaX / 2
+  point.geometry.coordinates.z += deltaZ / 2
 })
 
-// console.log(points.map(point => point.properties.name))
+// console.log(points.map(point => point.properties))
 
 export default points
