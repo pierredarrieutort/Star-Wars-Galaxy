@@ -1,7 +1,7 @@
 import geojson from './data/raw_geojson_from_leaflet.json'
 import extractPopupContent from './helpers/extractPopupContent'
 
-// Get only points at this time
+// Get only points at this time and removeing useless failed custom markers.
 const points = geojson.features
   .filter(
     obj => obj.geometry.type === 'Point' &&
@@ -10,7 +10,8 @@ const points = geojson.features
   )
 
 points.forEach(point => {
-  delete point.type
+  // This property is now useless, so remove it from object.
+  delete point.geometry.type
 
   // Clean star properties
   point.properties.popupContent &&= extractPopupContent(point.properties.popupContent)
@@ -22,6 +23,9 @@ points.forEach(point => {
     ...point.properties.popupContent
   }
 
+  // Transform coords Array to Object to understand what value if dedicated to.
+  // Also adding "-" to "z" value because value was extracted from
+  // positive Y axis all will go to A negative Z axis (as THREE.JS handle 3D axes).
   point.geometry.coordinates = {
     x: point.geometry.coordinates[0],
     z: -(point.geometry.coordinates[1])
@@ -40,6 +44,6 @@ points.splice(0, indexA)
 const index23 = points.findIndex(obj => obj.properties.name === 'Belkadan')
 points.splice(0, index23)
 
-// console.log(points.map(point => point))
+console.log(points.map(point => point.geometry))
 
 export default points

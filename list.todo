@@ -1,10 +1,7 @@
 DATA EXTRACTION :
-- Deal with tooltipContent et popupContent (tooltip seems to be the label alaways visible, the popup is visible when clicked)(possibly just rename them explicitly).
-
-
-DOCUMENTATION :
-- continue documentation (not extractPopupContent but index.ts).
-- update star TS model with isCanon, lengends, etc...
+- Deal with tooltipContent et popupContent
+  -- tooltip seems to be the label always visible, the popup is visible when clicked.
+  -- possibly just rename them explicitly.
 
 
 THEN :
@@ -15,12 +12,7 @@ THEN :
 
 
 OPTIMIZATION :
-- Optimize lineLoop poygons or find alternative like 2D circle.
+- Optimize lineLoop polygons or find alternative like 2D circle.
 - If parentGroup of suppression has no child, delete it from other parent recursively.
 - Try to deal with parentGroup and subGroup especially when no lineLoop anymore (possibly when a group is only child of a group, try to merge them).
 - When textures will be applied, don't forget to delete them from scene.
-
-
-
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ADD SIZE TO STARS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!

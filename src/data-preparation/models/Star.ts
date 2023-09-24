@@ -1,7 +1,3 @@
-export interface Star {
-  name: string
-}
-
 export enum StarType {
   Planet,
   Moon,
@@ -23,15 +19,32 @@ export enum AtmosphereType {
   variable = 'variable'
 }
 
-export interface StarTopology {
+export interface StarProperties {
+  name: string
+  icon: string
   type: StarType
   diameter: number
   atmosphere: AtmosphereType
-  stars: string
   moons: string
-}
-
-export interface StarInMovies {
+  stars: string
+  description: string
   isCannon: boolean
   isLegends: boolean
+  thumbnail: string
+  wikiLink: string
+}
+
+export interface StarGeometry {
+  coordinates: {
+    x: number,
+    z: number
+  }
+  size: number
+  radius: number
+  offsetAngle: number
+}
+
+export interface StarData {
+  properties: StarProperties
+  geometry: StarGeometry
 }

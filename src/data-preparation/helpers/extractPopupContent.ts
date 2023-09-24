@@ -1,4 +1,4 @@
-import { StarTopology, AtmosphereType, StarType } from '../models/Star'
+import { StarProperties, AtmosphereType, StarType } from '../models/Star'
 
 export default function extractPopupContent (htmlAsString: string) {
   // Set templates to avoid img tring to load content.
@@ -68,7 +68,7 @@ export default function extractPopupContent (htmlAsString: string) {
   detailsElement.remove()
 
   // Extracting keywords and their values.
-  const { type, diameter, atmosphere, moons, stars } = /(?<=Type:\s)(?<type>.+)(?=Diameter:)\w+:\s(?<diameter>.+)(?=Atmosphere:)\w+:\s(?<atmosphere>.+)(?=Stars?:)\w+:\s(?<stars>.+)(?=Moons?:)\w+:\s(?<moons>.+)/gmi.exec(cleanedDetailsText)?.groups || {} as StarTopology
+  const { type, diameter, atmosphere, moons, stars } = /(?<=Type:\s)(?<type>.+)(?=Diameter:)\w+:\s(?<diameter>.+)(?=Atmosphere:)\w+:\s(?<atmosphere>.+)(?=Stars?:)\w+:\s(?<stars>.+)(?=Moons?:)\w+:\s(?<moons>.+)/gmi.exec(cleanedDetailsText)?.groups || {} as StarProperties
 
   // Returning a data-cleaned properties object.
   return {
