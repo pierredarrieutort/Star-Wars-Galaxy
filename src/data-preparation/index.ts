@@ -21,6 +21,7 @@ points.forEach(point => {
   // Reorganize data
   point.properties = {
     name: point.properties.tooltipContent,
+    icon: point.properties.icon,
     ...point.properties.popupContent
   }
 
@@ -68,6 +69,6 @@ points.forEach(point => {
   point.geometry.coordinates.z += deltaZ / 2
 })
 
-// console.log(points.map(point => point.properties))
+console.log(points.map(point => point))
 
 export default points

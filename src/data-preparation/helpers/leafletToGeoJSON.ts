@@ -15,11 +15,19 @@ function exportToGeoJSON () {
     if (layer.toGeoJSON) {
       geojson ||= layer.toGeoJSON()
 
-      if (layer.getPopup && layer.getPopup()) {
+      if (typeof layer.getIcon === 'function') {
+        const icon = layer.getIcon()
+
+        if (icon) {
+          geojson.properties.icon = icon.options.iconUrl
+        }
+      }
+
+      if (typeof layer.getPopup === 'function') {
         geojson.properties.popupContent = layer.getPopup().getContent()
       }
 
-      if (layer.getTooltip && layer.getTooltip()) {
+      if (typeof layer.getTooltip === 'function') {
         geojson.properties.tooltipContent = layer.getTooltip().getContent()
       }
 
