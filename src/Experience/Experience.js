@@ -11,6 +11,7 @@ import Resources from './Utils/Resources.js'
 import sources from './sources.js'
 import Raycaster from './Utils/Raycaster.js'
 import Mouse from './Utils/Mouse.js'
+import UserInterface from './Utils/UserInterface.js'
 
 let instance = null
 
@@ -39,6 +40,7 @@ export default class Experience {
         this.renderer = new Renderer()
         this.raycaster = new Raycaster()
         this.world = new World()
+        this.userInterface = new UserInterface()
 
         this.sizes.on('resize', () => this.resize())
 

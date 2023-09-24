@@ -12,7 +12,6 @@ export default class Raycaster extends EventEmitter {
     this.canvas = this.experience.canvas
     this.mouse = this.experience.mouse
 
-
     this.instance = new THREE.Raycaster()
 
     this.clickableInstances = [
@@ -30,7 +29,13 @@ export default class Raycaster extends EventEmitter {
 
   mousemoveRaycasting () {
     const isClickable = this.isClickableElementAtPosition()
-    this.setCursorStyle(isClickable && 'pointer')
+
+    if (isClickable) {
+      this.setCursorStyle('pointer')
+      this.trigger('hydrateUI', [isClickable.object.parent.parent.userData.properties])
+    } else {
+      this.setCursorStyle()
+    }
   }
 
   isClickableElementAtPosition () {
@@ -56,11 +61,6 @@ export default class Raycaster extends EventEmitter {
   handleClickedClickableElement (clickableElement) {
     if (clickableElement) {
       this.camera.followingMesh = clickableElement.object.parent
-
-      console.log(
-        clickableElement.object.parent.parent.userData.properties.name,
-        clickableElement.object.parent.parent.userData
-      )
     }
     // else if (this.camera.followingMesh) {
     //   this.camera.resetCameraToWorldCenter()
