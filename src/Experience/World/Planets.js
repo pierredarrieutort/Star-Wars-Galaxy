@@ -105,7 +105,7 @@ export default class Planets {
     _sphereGeometry.scale(starData.geometry.size, starData.geometry.size, starData.geometry.size)
 
     const curve = new THREE.EllipseCurve(0, 0, starData.geometry.radius, starData.geometry.radius)
-    const pts = curve.getSpacedPoints(256)
+    const pts = curve.getSpacedPoints(16)
     const _lineLoopGeometry = new THREE.BufferGeometry()
       .setFromPoints(pts)
       .rotateX(Math.PI / 2)
