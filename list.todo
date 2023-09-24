@@ -1,5 +1,4 @@
 DATA EXTRACTION :
-- Try to properly displace points by substract base centering of them (var map = L.map('map', { crs: L.CRS.Simple }).setView([-121.75, 124.625], 0);
 - Deal with tooltipContent et popupContent (tooltip seems to be the label alaways visible, the popup is visible when clicked)(possibly just rename them explicitly).
 
 
