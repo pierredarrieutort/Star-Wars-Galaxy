@@ -1,4 +1,4 @@
-import { StarProperties, AtmosphereType, StarType } from '../models/Star'
+import { StarProperties, AtmosphereType, StarType } from '../models/Star.type'
 
 export default function extractPopupContent (htmlAsString: string) {
   // Set templates to avoid img tring to load content.

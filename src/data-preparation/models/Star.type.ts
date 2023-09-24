@@ -44,7 +44,7 @@ export interface StarGeometry {
   offsetAngle: number
 }
 
-export interface StarData {
+export default interface Star {
   properties: StarProperties
   geometry: StarGeometry
 }

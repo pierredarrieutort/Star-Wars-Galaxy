@@ -31,6 +31,7 @@ export default class Planets {
     this.setMaterials()
 
     // preCleanedData.length = 1
+    console.log(preCleanedData)
     this.starGroups = preCleanedData.map(starData => this.createStar(starData))
   }
 

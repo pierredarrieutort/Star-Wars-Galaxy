@@ -44,6 +44,6 @@ points.splice(0, indexA)
 const index23 = points.findIndex(obj => obj.properties.name === 'Belkadan')
 points.splice(0, index23)
 
-console.log(points.map(point => point.geometry))
+// console.log(points.map(point => point))
 
 export default points
