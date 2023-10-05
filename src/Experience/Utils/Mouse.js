@@ -1,9 +1,13 @@
 import * as THREE from 'three'
 import EventEmitter from './EventEmitter.js'
+import Experience from '../Experience.js'
 
 export default class Mouse extends EventEmitter {
   constructor () {
     super()
+    
+    this.experience = new Experience()
+    this.canvas = this.experience.canvas
 
     this.instance = {
       clientX: 0,
@@ -19,12 +23,12 @@ export default class Mouse extends EventEmitter {
       this.trigger('click')
     }
 
-    window.addEventListener('mousemove', this._internalMouseMoveReference, { passive: true })
-    window.addEventListener('click', this._internalClickReference, { passive: true })
+    this.canvas.addEventListener('mousemove', this._internalMouseMoveReference, { passive: true })
+    this.canvas.addEventListener('click', this._internalClickReference, { passive: true })
   }
 
   destroy () {
-    window.removeEventListener('mousemove', this._internalMouseMoveReference, { passive: true })
-    window.removeEventListener('click', this._internalClickReference, { passive: true })
+    this.canvas.removeEventListener('mousemove', this._internalMouseMoveReference, { passive: true })
+    this.canvas.removeEventListener('click', this._internalClickReference, { passive: true })
   }
 }
