@@ -7,6 +7,7 @@ export default class Galaxy {
         this.scene = this.experience.scene
         this.debug = this.experience.debug
         this.resources = this.experience.resources
+        this.renderer = this.experience.renderer
 
         this.parameters = {
             count: 200000,
@@ -90,6 +91,7 @@ export default class Galaxy {
 
         const positions = new Float32Array(this.parameters.count * 3)
         const colors = new Float32Array(this.parameters.count * 3)
+        const scales = new Float32Array(this.parameters.count)
 
         const insideColor = new THREE.Color(this.parameters.insideColor)
         const outsideColor = new THREE.Color(this.parameters.outsideColor)
@@ -117,10 +119,13 @@ export default class Galaxy {
             colors[i3] = mixedColor.r
             colors[i3 + 1] = mixedColor.g
             colors[i3 + 2] = mixedColor.b
+
+            scales[i] = Math.random()
         }
 
         this.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
         this.geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+        this.geometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1))
 
         /**
          * Material
@@ -130,7 +135,10 @@ export default class Galaxy {
             blending: THREE.AdditiveBlending,
             vertexColors: true,
             vertexShader: this.resources.items.GalaxyShaderVertex,
-            fragmentShader: this.resources.items.GalaxyShaderFragment
+            fragmentShader: this.resources.items.GalaxyShaderFragment,
+            uniforms: {
+                uSize: { value: 25 * this.renderer.instance.getPixelRatio() }
+            }
         })
 
         /**
