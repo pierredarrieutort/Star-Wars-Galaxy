@@ -1,6 +1,7 @@
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
 import Planets from './Planets.js'
+import Galaxy from './Galaxy.js'
 
 export default class World {
     constructor () {
@@ -21,6 +22,7 @@ export default class World {
         // Setup
         this.planets = new Planets()
         this.environment = new Environment()
+        this.galaxy = new Galaxy()
     }
 
     update () {
