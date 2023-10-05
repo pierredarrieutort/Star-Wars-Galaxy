@@ -1,17 +1,7 @@
-export default [
-    // {
-    //     name: 'environmentMapTexture',
-    //     type: 'cubeTexture',
-    //     path:
-    //     [
-    //         'textures/environmentMap/px.jpg',
-    //         'textures/environmentMap/nx.jpg',
-    //         'textures/environmentMap/py.jpg',
-    //         'textures/environmentMap/ny.jpg',
-    //         'textures/environmentMap/pz.jpg',
-    //         'textures/environmentMap/nz.jpg'
-    //     ]
-    // },
+import galaxyShaderFragment from '../shaders/galaxy/fragment.glsl'
+import galaxyShaderVertex from '../shaders/galaxy/vertex.glsl'
+
+const planetsTextures = [
     {
         "name": "AbregadoRaePlanetTexture",
         "type": "texture",
@@ -506,5 +496,32 @@ export default [
         "name": "Yavin4PlanetTexture",
         "type": "texture",
         "path": "images/planets/Yavin4.png"
+    }
+]
+
+export default [
+    // {
+    //     name: 'environmentMapTexture',
+    //     type: 'cubeTexture',
+    //     path:
+    //     [
+    //         'textures/environmentMap/px.jpg',
+    //         'textures/environmentMap/nx.jpg',
+    //         'textures/environmentMap/py.jpg',
+    //         'textures/environmentMap/ny.jpg',
+    //         'textures/environmentMap/pz.jpg',
+    //         'textures/environmentMap/nz.jpg'
+    //     ]
+    // },
+    ...planetsTextures,
+    {
+        "name": "GalaxyShaderFragment",
+        "type": "shaderFragment",
+        "content": galaxyShaderFragment
+    },
+    {
+        "name": "GalaxyShaderVertex",
+        "type": "shaderVertex",
+        "content": galaxyShaderVertex
     }
 ]

@@ -58,6 +58,9 @@ export default class Resources extends EventEmitter {
                         }
                     )
                 }
+                else if (['shaderFragment', 'shaderVertex'].includes(source.type)) {
+                    this.sourceLoaded(source, source.content)
+                }
             }
         } else {
             this.trigger('ready')

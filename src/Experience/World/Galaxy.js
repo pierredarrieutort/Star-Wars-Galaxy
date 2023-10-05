@@ -6,11 +6,12 @@ export default class Galaxy {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.debug = this.experience.debug
+        this.resources = this.experience.resources
 
         this.parameters = {
             count: 200000,
             size: .0005,
-            radius: 5,
+            radius: 145,
             branches: 3,
             spin: 1,
             randomness: .5,
@@ -40,14 +41,14 @@ export default class Galaxy {
             this.debugFolder
                 .add(this.parameters, 'radius')
                 .min(0.01)
-                .max(20000)
+                .max(250)
                 .step(0.01)
                 .onFinishChange(() => this.generateGalaxy())
 
             this.debugFolder
                 .add(this.parameters, 'branches')
                 .min(2)
-                .max(20)
+                .max(10)
                 .step(1)
                 .onFinishChange(() => this.generateGalaxy())
 
@@ -124,12 +125,12 @@ export default class Galaxy {
         /**
          * Material
          */
-        this.material = new THREE.PointsMaterial({
-            size: this.parameters.size,
-            sizeAttenuation: true,
+        this.material = new THREE.ShaderMaterial({
             depthWrite: false,
             blending: THREE.AdditiveBlending,
-            vertexColors: true
+            vertexColors: true,
+            vertexShader: this.resources.items.GalaxyShaderVertex,
+            fragmentShader: this.resources.items.GalaxyShaderFragment
         })
 
         /**
