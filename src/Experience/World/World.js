@@ -27,5 +27,6 @@ export default class World {
 
     update () {
         this.planets?.update()
+        this.galaxy?.update()
     }
 }

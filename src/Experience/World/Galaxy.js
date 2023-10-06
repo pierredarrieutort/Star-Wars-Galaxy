@@ -8,11 +8,12 @@ export default class Galaxy {
         this.debug = this.experience.debug
         this.resources = this.experience.resources
         this.renderer = this.experience.renderer
+        this.time = this.experience.time
 
         this.parameters = {
             count: 200000,
             size: .0005,
-            radius: 145,
+            radius: 75,
             branches: 3,
             spin: 1,
             randomness: .5,
@@ -20,6 +21,8 @@ export default class Galaxy {
             insideColor: '#ff6030',
             outsideColor: '#1b3984'
         }
+
+        this.galaxyBaseAge = 500
 
         this.geometry = null
         this.material = null
@@ -92,6 +95,7 @@ export default class Galaxy {
         const positions = new Float32Array(this.parameters.count * 3)
         const colors = new Float32Array(this.parameters.count * 3)
         const scales = new Float32Array(this.parameters.count)
+        const randomness = new Float32Array(this.parameters.count * 3)
 
         const insideColor = new THREE.Color(this.parameters.insideColor)
         const outsideColor = new THREE.Color(this.parameters.outsideColor)
@@ -104,13 +108,19 @@ export default class Galaxy {
 
             const branchAngle = (i % this.parameters.branches) / this.parameters.branches * Math.PI * 2
 
+            positions[i3] = Math.cos(branchAngle) * radius
+            positions[i3 + 1] = 0
+            positions[i3 + 2] = Math.sin(branchAngle) * radius
+
+            // Randomness
+
             const randomX = Math.pow(Math.random(), this.parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * this.parameters.randomness * radius
             const randomY = Math.pow(Math.random(), this.parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * this.parameters.randomness * radius
             const randomZ = Math.pow(Math.random(), this.parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * this.parameters.randomness * radius
 
-            positions[i3] = Math.cos(branchAngle) * radius + randomX
-            positions[i3 + 1] = randomY
-            positions[i3 + 2] = Math.sin(branchAngle) * radius + randomZ
+            randomness[i3] = randomX
+            randomness[i3 + 1] = randomY
+            randomness[i3 + 2] = randomZ
 
             // Color
             const mixedColor = insideColor.clone()
@@ -126,6 +136,7 @@ export default class Galaxy {
         this.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
         this.geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
         this.geometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1))
+        this.geometry.setAttribute('aRandomness', new THREE.BufferAttribute(randomness, 3))
 
         /**
          * Material
@@ -134,11 +145,12 @@ export default class Galaxy {
             depthWrite: false,
             blending: THREE.AdditiveBlending,
             vertexColors: true,
-            vertexShader: this.resources.items.GalaxyShaderVertex,
-            fragmentShader: this.resources.items.GalaxyShaderFragment,
             uniforms: {
-                uSize: { value: 25 * this.renderer.instance.getPixelRatio() }
-            }
+                uTime: { value: this.galaxyBaseAge },
+                uSize: { value: 1000 * this.renderer.instance.getPixelRatio() }
+            },
+            vertexShader: this.resources.items.GalaxyShaderVertex,
+            fragmentShader: this.resources.items.GalaxyShaderFragment
         })
 
         /**
@@ -146,5 +158,9 @@ export default class Galaxy {
          */
         this.points = new THREE.Points(this.geometry, this.material)
         this.scene.add(this.points)
+    }
+
+    update () {
+        this.material.uniforms.uTime.value = this.time.elapsed + this.galaxyBaseAge
     }
 }
