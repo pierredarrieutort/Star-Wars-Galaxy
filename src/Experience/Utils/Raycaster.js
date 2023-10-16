@@ -63,10 +63,14 @@ export default class Raycaster extends EventEmitter {
       this.camera.followingMesh = clickableElement.object.parent
     }
     // else if (this.camera.followingMesh) {
-    //   this.camera.resetCameraToWorldCenter()
+    //   this.unfocusClickableElement()
     // }
   }
 
+  unfocusClickableElement () {
+    window.experience.userInterface.ui.innerHTML=''
+    this.camera.resetCameraToWorldCenter()
+  }
 
   getIntersectedElements () {
     const mousePosition = new THREE.Vector2()

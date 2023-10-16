@@ -39,6 +39,7 @@ export default class UserInterface extends EventEmitter {
         `.trim()
 
         this.ui.innerHTML = `
+          <button onclick="window.experience.raycaster.unfocusClickableElement()">X</button>
           <p class="title">${data.name}</p>
           ${content ? `<ul class="content">${content}</ul>` : ''}
         `
