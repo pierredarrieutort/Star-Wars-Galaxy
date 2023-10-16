@@ -21,6 +21,7 @@ void main() {
   angle += angleOffset;
 
   modelPosition.x = cos(angle) * distanceToCenter;
+  modelPosition.y = -(cos(angle) / 1.5 + sin(angle) * 2.5) / 4.0 * distanceToCenter;
   modelPosition.z = sin(angle) * distanceToCenter;
 
   /**
@@ -38,7 +39,6 @@ void main() {
   gl_PointSize = uSize * aScale;
   gl_PointSize *= (1.0 / -viewPosition.z);
 
-  
   /**
   *  Color
   */
