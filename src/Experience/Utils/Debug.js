@@ -16,6 +16,9 @@ export default class Debug {
             this.AxesHelper = null
             this.isDisplayedAxesHelper = true
 
+            this.gridHelper = new THREE.GridHelper(100, 10)
+            this.scene.add(this.gridHelper)
+
             this.generalSettings = this.ui.addFolder('General settings')
 
             this.showStatsPanel()
