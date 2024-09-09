@@ -23,14 +23,18 @@ body {
   flex-direction: column;
   gap: 1em;
   max-width: calc(100% - 2em);
-}
 
-#ui :is(.title, .content) {
-  padding: .5em;
-  background: rgba(255, 255, 255, .5);
-  border-radius: .2em;
-}
+  :is(.title, .content) {
+    padding: .5em;
+    background: rgba(255, 255, 255, .5);
+    border-radius: .2em;
+  }
 
-#ui .content:empty {
-  display: none;
+  .content:empty {
+    display: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
 }

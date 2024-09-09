@@ -6,6 +6,7 @@ THEN :
 
 
 OPTIMIZATION :
+- Use alternative to current recursive raycast slowing instance on mousemove.
 - Optimize lineLoop polygons or find alternative like 2D circle.
 - If parentGroup of suppression has no child, delete it from other parent recursively.
 - Try to deal with parentGroup and subGroup especially when no lineLoop anymore (possibly when a group is only child of a group, try to merge them).

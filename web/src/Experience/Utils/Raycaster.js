@@ -25,17 +25,13 @@ export default class Raycaster extends EventEmitter {
   clickRaycasting () {
     const isClickable = this.isClickableElementAtPosition()
     this.handleClickedClickableElement(isClickable)
+    this.trigger('hydrateUI', [isClickable.object.parent.parent.userData.properties])
   }
 
   mousemoveRaycasting () {
     const isClickable = this.isClickableElementAtPosition()
 
-    if (isClickable) {
-      this.setCursorStyle('pointer')
-      this.trigger('hydrateUI', [isClickable.object.parent.parent.userData.properties])
-    } else {
-      this.setCursorStyle()
-    }
+    this.setCursorStyle(isClickable && 'pointer')
   }
 
   isClickableElementAtPosition () {
@@ -68,7 +64,7 @@ export default class Raycaster extends EventEmitter {
   }
 
   unfocusClickableElement () {
-    window.experience.userInterface.ui.innerHTML=''
+    window.experience.userInterface.ui.innerHTML = ''
     this.camera.resetCameraToWorldCenter()
   }
 
