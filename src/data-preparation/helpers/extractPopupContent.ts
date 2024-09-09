@@ -33,7 +33,7 @@ export default function extractPopupContent (htmlAsString: string) {
   const contentImages = [
     ...detailsElement.content.querySelectorAll('img'),
     ...descriptionElement.content.querySelectorAll('img')
-  ].map(({ src }) => new URL(src).pathname.split('/').pop())
+  ].map(({ src }) => src)
 
   // Check if 't-canon2.png' is in array.
   const isCanon = contentImages.includes('t-canon2.png')
