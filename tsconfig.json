@@ -19,5 +19,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["web/src", "web/script.ts", "web/vite.config.js", "data-preparation"]
+  "include": ["src", "web/script.tsvite.config.js", "data-preparation"]
 }
