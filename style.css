@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+#ui {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: calc(100% - 2em);
+
+  :is(.title, .content) {
+    padding: .5em;
+    background: rgba(255, 255, 255, .5);
+    border-radius: .2em;
+  }
+
+  .content:empty {
+    display: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
