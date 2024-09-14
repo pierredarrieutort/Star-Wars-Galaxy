@@ -1,6 +1,9 @@
 # 3D Star Wars Galaxy
 
+[<img alt="3D Star Wars Galaxy project thumbnail" src="./project-thumbnail.png">](https://star-wars-galaxy.vercel.app)
+
 A 3D version of the Star Wars Galaxy map based on multiples data sources.
+You can check the map here : [star-wars-galaxy.vercel.app](https://star-wars-galaxy.vercel.app).
 
 *Notice : If something seems incorrect in the planets sizes, textures, rotation behaviors or anything, feel free to create an issue or a PR to maintain the project and make it closest of the lore.*
 
@@ -14,6 +17,7 @@ A 3D version of the Star Wars Galaxy map based on multiples data sources.
     - [You have 2 possibilities of file import](#you-have-2-possibilities-of-file-import)
       - [1. Static data already treated](#1-static-data-already-treated)
       - [2. Dynamic data from a fresh extract](#2-dynamic-data-from-a-fresh-extract)
+    - [How to access to the debug view ?](#how-to-access-to-the-debug-view-)
 
 
 ## Project origins
@@ -48,3 +52,7 @@ Make sure you imported the desired dataset in the following file : `./src/Experi
 6. The object you just copied can be pasted to replace the content of `./data-preparation/data/raw_geojson_from_leaflet.json`.
 7. Now you have a pretty good dataset, but if you check some details, you can see a lot of non-formatted data, so the `index.ts` is here to clean all of this.
 8. Make sure you imported the desired dataset in the following file : `./src/Experience/World/Planets.js`.
+
+### How to access to the debug view ?
+
+I've implemented a debug view, accessible by adding an anchor `#debug` to the URL and reload the page, or simply go here : [star-wars-galaxy.vercel.app#debug](https://star-wars-galaxy.vercel.app/#debug).
