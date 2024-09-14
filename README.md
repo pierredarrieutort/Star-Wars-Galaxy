@@ -33,13 +33,13 @@ Simply use `npm run dev` after dependencies installation.
 ### You have 2 possibilities of file import
 
 #### 1. Static data already treated
-1. How to use `preCleanedData.ts`  ?
+
+The purpose of `preCleanedData.ts` is to deal with a dataset already cleaned and without known issue. If you prefer to deal with fresh extracted data, you must use the following `index.ts` approach.
+
+Make sure you imported the desired dataset in the following file : `./src/Experience/World/Planets.js`.
 ````ts
 import preCleanedData from '../../data-preparation/data/preCleanedData.ts'
 ````
-**Warning :** The purpose of `preCleanedData.ts` is to deal with a dataset already cleaned and without known issue. If you prefer to deal with fresh extracted data, you must use the following `index.ts` approach.
-
-Make sure you imported the desired dataset in the following file : `./src/Experience/World/Planets.js`.
 
 
 #### 2. Dynamic data from a fresh extract
@@ -52,6 +52,9 @@ Make sure you imported the desired dataset in the following file : `./src/Experi
 6. The object you just copied can be pasted to replace the content of `./data-preparation/data/raw_geojson_from_leaflet.json`.
 7. Now you have a pretty good dataset, but if you check some details, you can see a lot of non-formatted data, so the `index.ts` is here to clean all of this.
 8. Make sure you imported the desired dataset in the following file : `./src/Experience/World/Planets.js`.
+````ts
+import preCleanedData from '../../../data-preparation/index.ts'
+````
 
 ### How to access to the debug view ?
 
