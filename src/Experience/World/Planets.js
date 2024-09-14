@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
 
-import preCleanedData from '../../data-preparation/index.ts'
+import preCleanedData from '../../../data-preparation/index.ts'
 // import preCleanedData from '../../data-preparation/data/preCleanedData.ts'
 
 export default class Planets {

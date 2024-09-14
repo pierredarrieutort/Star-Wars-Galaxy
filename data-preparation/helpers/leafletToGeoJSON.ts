@@ -1,3 +1,7 @@
+/**
+ * This function is dedicated to extract as a GeoJSON, a leaflet
+ * instance located in browser "window" global variable.
+ */
 function exportToGeoJSON () {
   const geojsonObject = {
     type: 'FeatureCollection',

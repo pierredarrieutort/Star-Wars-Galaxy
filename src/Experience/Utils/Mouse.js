@@ -18,6 +18,7 @@ export default class Mouse extends EventEmitter {
       this.instance = e
       this.trigger('mousemove')
     }
+
     this._internalClickReference = e => {
       this.instance = e
       this.trigger('click')
